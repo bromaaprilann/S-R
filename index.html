@@ -263,10 +263,10 @@
             const words = text.trim().split(/\\s+/).filter(word => word.length > 0).length;
             const readTime = Math.ceil(words / 200) || 1;
             
-            let htmlOutput = "📊 <b>" + words + "</b> words &nbsp;|&nbsp; ⏱️ <b>~" + readTime + "</b> min read";
-            if(words === 0) { htmlOutput = "📊 <b>0</b> words &nbsp;|&nbsp; ⏱️ <b>~0</b> min read"; }
+            let textOutput = "📊 <b>" + words + "</b> words &nbsp;|&nbsp; ⏱️ <b>~" + readTime + "</b> min read";
+            if(words === 0) { textOutput = "📊 <b>0</b> words &nbsp;|&nbsp; ⏱️ <b>~0</b> min read"; }
             
-            document.getElementById(statsId).innerHTML = htmlOutput;
+            document.getElementById(statsId).innerHTML = textOutput;
         }
 
         function visualReset(btn) {
@@ -301,14 +301,8 @@
                 const type = document.getElementById('shippingPolicyType').value;
                 const outputBox = document.getElementById('shippingOutput');
                 
-                // =========================================================
-                // OPTION 1: VISUAL LAYOUT (DEFEATS CMS CENTERING RULES)
-                // - h2Top and h2 font sizes massively increased to 32px
-                // - Font-weight explicitly set to 900 for extra boldness
-                // =========================================================
                 const divP = 'align="left" style="text-align: left !important; font-size: 16px; line-height: 1.8; color: #1a1a1a; display: block;"';
                 
-                // BUMPED TO 32px and 900 FONT WEIGHT
                 const divH2Top = 'align="left" style="text-align: left !important; font-size: 32px !important; font-weight: 900 !important; color: #000 !important; border-bottom: 3px solid #eee !important; padding-bottom: 12px !important; display: block !important; margin: 0 0 32px 0 !important;"';
                 const divH2 = 'align="left" style="text-align: left !important; font-size: 28px !important; font-weight: 900 !important; color: #000 !important; border-bottom: 2px solid #eee !important; padding-bottom: 12px !important; display: block !important; margin: 48px 0 24px 0 !important;"';
                 
@@ -317,17 +311,9 @@
                 const divUl = 'align="left" style="text-align: left !important; padding-left: 24px; line-height: 1.8; display: block;"';
                 const divLi = 'style="text-align: left !important; margin-bottom: 8px;"';
 
-                // =========================================================
-                // OPTION 2: CODE VIEW STYLES
-                // - Font-sizes bumped to 2.2em for Top and 1.8em for normal
-                // - Font-weight strictly 900
-                // =========================================================
                 const pCode = 'style="text-align: left; margin: 0 0 16px 0; line-height: 1.6;"';
-                
-                // BUMPED TO 2.2em and 900 FONT WEIGHT
                 const h2TopCode = 'style="text-align: left; margin: 0 0 24px 0; border-bottom: 2px solid #ddd; padding-bottom: 10px; font-size: 2.2em; font-weight: 900;"';
                 const h2Code = 'style="text-align: left; margin: 40px 0 20px 0; border-bottom: 1px solid #ddd; padding-bottom: 10px; font-size: 1.8em; font-weight: 900;"';
-                
                 const h3Code = 'style="text-align: left; margin: 24px 0 12px 0; font-size: 1.25em; font-weight: normal;"';
                 const ulCode = 'style="text-align: left; margin: 0 0 16px 0; padding-left: 24px; line-height: 1.6;"';
                 const liCode = 'style="text-align: left; margin-bottom: 8px;"';
@@ -335,7 +321,6 @@
                 let htmlContent = '';
 
                 if (type === 'short') {
-                    // OPTION 2 CODE GENERATION
                     htmlContent = `<div style="text-align: left; font-family: inherit; width: 100%;">
     <p ${pCode}>At <strong>${b}</strong>, we value your trust and aim to provide a smooth, transparent shopping experience.</p>
 
@@ -424,8 +409,7 @@
                     document.getElementById('instructionBox').style.display = 'block';
 
                 } else {
-                    // OPTION 1 VISUAL GENERATION
-                    htmlContent = `<div align="left" style="text-align: left !important; font-family: inherit; width: 100% !important;">
+                    htmlContent = `<div align="left" style="text-align: left !important; font-family: inherit; width: 100%; ">
     <div ${divH2Top}>General Terms & Policy</div>
     
     <div ${divP}>${b} reserves the right to update the rules when necessary, and the updated version will be published on ${url} with immediate effect. If you refuse to accept the policy, you are deemed to have waived the use of the services provided by ${b} immediately. All buyers are deemed to accept the rules if they are using the services provided by ${b}. ${b}'s policy shall prevail.</div>
@@ -614,9 +598,10 @@
                 document.getElementById('instructionBox').style.display = 'none';
 
                 updateStats('shippingOutput', 'shippingStats');
-
-            } catch (e) {
-                alert("Error generating policy: " + e.message);
+                
+            } catch (error) {
+                alert("Error generating policy: " + error.message);
+                console.error(error);
             }
         }
     </script>
