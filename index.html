@@ -168,10 +168,18 @@
             
             <div style="margin-bottom: 24px;">
                 <label style="font-size: 13px; font-weight: 800; color: var(--text-main); margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 0.5px;">Select Policy Format</label>
-                <select id="shippingPolicyType" class="input-field-gen" style="cursor: pointer;">
+                <!-- ADDED onchange EVENT HERE to instantly toggle the image when clicked! -->
+                <select id="shippingPolicyType" class="input-field-gen" style="cursor: pointer;" onchange="toggleInstructionBox()">
                     <option value="long">Option 1: Detailed General Policy (Recommended)</option>
-                    <option value="short">Option 2: Standard Short HTML Format (Raw Code View)</option>
+                    <option value="short">Option 2: Standard Short HTML Format</option>
                 </select>
+                
+                <!-- THIS IS YOUR NEW INSTRUCTION BOX (Hidden by default, shown for Option 2) -->
+                <div id="instructionBox" style="display: none; margin-top: 16px; background: rgba(37, 99, 235, 0.08); border: 1px solid var(--primary); padding: 16px; border-radius: 14px; font-size: 14px; color: var(--text-main); text-align: left;">
+                    <strong>💡 Pro Tip:</strong> Before pasting this HTML into your website, make sure to click the <strong>&lt;/&gt; Code View</strong> button in your text editor!
+                    <br>
+                    <img src="Screenshot 2026-05-28 135626.png" alt="Code View Icon" style="max-width: 100%; border-radius: 8px; margin-top: 12px; border: 1px solid var(--border-glass); box-shadow: var(--shadow-soft);">
+                </div>
             </div>
             
             <div class="btn-group">
@@ -181,8 +189,6 @@
                 </button>
             </div>
             
-            <div id="instructionBox" style="display: none; margin-bottom: 20px;"></div>
-
             <div style="position: relative;">
                 <div id="shippingOutput" class="output-box" contenteditable="true" placeholder="Your custom policy will appear here..." oninput="updateStats('shippingOutput', 'shippingStats')"></div>
                 <button type="button" onclick="copyRichText(this, 'shippingOutput')" class="btn-copy-themed">Copy Text</button>
@@ -218,6 +224,17 @@
                 console.log("Local storage restricted.");
             }
         });
+        
+        // NEW FUNCTION: Toggles the Instruction Box instantly when Dropdown changes
+        function toggleInstructionBox() {
+            const type = document.getElementById('shippingPolicyType').value;
+            const box = document.getElementById('instructionBox');
+            if (type === 'short') {
+                box.style.display = 'block';
+            } else {
+                box.style.display = 'none';
+            }
+        }
 
         function copyRichText(buttonElement, containerId) {
             const container = document.getElementById(containerId);
@@ -263,10 +280,10 @@
             const words = text.trim().split(/\\s+/).filter(word => word.length > 0).length;
             const readTime = Math.ceil(words / 200) || 1;
             
-            let textOutput = "📊 <b>" + words + "</b> words &nbsp;|&nbsp; ⏱️ <b>~" + readTime + "</b> min read";
-            if(words === 0) { textOutput = "📊 <b>0</b> words &nbsp;|&nbsp; ⏱️ <b>~0</b> min read"; }
+            let htmlOutput = "📊 <b>" + words + "</b> words &nbsp;|&nbsp; ⏱️ <b>~" + readTime + "</b> min read";
+            if(words === 0) { htmlOutput = "📊 <b>0</b> words &nbsp;|&nbsp; ⏱️ <b>~0</b> min read"; }
             
-            document.getElementById(statsId).innerHTML = textOutput;
+            document.getElementById(statsId).innerHTML = htmlOutput;
         }
 
         function visualReset(btn) {
@@ -398,18 +415,12 @@
                     outputBox.style.fontFamily = "monospace";
                     outputBox.style.whiteSpace = "pre-wrap";
                     outputBox.style.textAlign = "left"; 
-                    
-                    document.getElementById('instructionBox').innerHTML = `
-                        <div style="background: rgba(37, 99, 235, 0.08); border: 1px solid var(--primary); padding: 16px; border-radius: 14px; font-size: 14px; color: var(--text-main); text-align: left;">
-                            <strong>💡 Pro Tip:</strong> Before pasting this HTML into your website, make sure to click the <strong>&lt;/&gt; Code View</strong> button in your text editor!
-                            <br>
-                            <img src="code-icon.png" alt="Code View Icon" style="max-width: 100%; border-radius: 8px; margin-top: 12px; border: 1px solid var(--border-glass); box-shadow: var(--shadow-soft);">
-                        </div>
-                    `;
+
+                    // Ensure box stays visible
                     document.getElementById('instructionBox').style.display = 'block';
 
                 } else {
-                    htmlContent = `<div align="left" style="text-align: left !important; font-family: inherit; width: 100%; ">
+                    htmlContent = `<div align="left" style="text-align: left !important; font-family: inherit; width: 100% !important;">
     <div ${divH2Top}>General Terms & Policy</div>
     
     <div ${divP}>${b} reserves the right to update the rules when necessary, and the updated version will be published on ${url} with immediate effect. If you refuse to accept the policy, you are deemed to have waived the use of the services provided by ${b} immediately. All buyers are deemed to accept the rules if they are using the services provided by ${b}. ${b}'s policy shall prevail.</div>
@@ -428,7 +439,7 @@
     
     <div ${divP}>${b} shall not require warranty, like whether to provide warranty or not, or the way of warranty handling with.</div>
     
-    <div ${divP}>${b} shall restrict with the refund time and redelivery time under the condition, included but not limited to order should refund based on the policy, agree on refund or redelivery between ${b} and buyer or others, ${b} must refund not more than 3 business days, or redelivery not more than 5 business days.</div>
+    <div ${divP}>${b} shall restrict with the refund time and redelivery time under the condition, included but not limited to order refund based on the policy, agree on refund or redelivery between ${b} and buyer or others, ${b} must refund not more than 3 business days, or redelivery not more than 5 business days.</div>
     
     <div ${divP}>Once the buyer submits the after-sales request, the buyer needs to provide evidence (as the clause states below) to ${b}. If the buyer cannot provide compelling evidence within the order after-sales period policy indicated, ${b} has the right to reject the return and refund request.</div>
     
