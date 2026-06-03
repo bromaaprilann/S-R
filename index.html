@@ -117,6 +117,10 @@
         
         .input-field-gen { padding: 16px 20px; font-size: 14px; background: var(--input-bg); color: var(--text-main); border: 1px solid var(--input-border); border-radius: 14px; width: 100%; outline: none; transition: all 0.3s ease; font-family: inherit;}
         .input-field-gen:focus { border-color: var(--accent-purple); box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2); background: var(--surface); transform: translateY(-2px);}
+        /* In dark mode, keep focused fields dark so typed text stays readable (don't flip to white) */
+        body.dark-mode .input-field-gen { color: var(--text-main); }
+        body.dark-mode .input-field-gen:focus { background: #1e293b; color: var(--text-main); }
+        body.dark-mode .input-field-gen::placeholder { color: var(--text-sub); }
         
         .btn-group { display: flex; gap: 16px; margin-bottom: 24px; }
         
@@ -338,6 +342,8 @@
         function generateShipping() {
             try {
                 const b = document.getElementById('shippingBizName').value || '[BUSINESS NAME]';
+                // Possessive form: "Dreams'" if the name ends in s, otherwise "Acme's"
+                const bPos = /s$/i.test(b) ? b + "'" : b + "'s";
                 const email = document.getElementById('shippingEmailInput').value || '[BUSINESS EMAIL ADDRESS]';
                 const type = document.getElementById('shippingPolicyType').value;
                 const outputBox = document.getElementById('shippingOutput');
@@ -457,7 +463,7 @@
     <h2 ${h2TopStyle}><font color="#000000"><b>GENERAL TERMS &amp; POLICY</b></font></h2>
     <p style="margin:0; line-height:1;">&nbsp;</p>
 
-    <p ${pStyle}>${b} reserves the right to update the rules when necessary, and the updated version will be published on ${urlLinkOpt1} with immediate effect. If you refuse to accept the policy, you are deemed to have waived the use of the services provided by ${b} immediately. All buyers are deemed to accept the rules if they are using the services provided by ${b}. ${b}'s policy shall prevail.</p>
+    <p ${pStyle}>${b} reserves the right to update the rules when necessary, and the updated version will be published on ${urlLinkOpt1} with immediate effect. If you refuse to accept the policy, you are deemed to have waived the use of the services provided by ${b} immediately. All buyers are deemed to accept the rules if they are using the services provided by ${b}. ${bPos} policy shall prevail.</p>
 
     <p ${pStyle}>For after-sales issues, buyers should file a return &amp; refund request within 30 days of the delivery date. The period of Return &amp; Refund request filed exceeds, ${b} reserves the right not to provide any after-sales service after that time.</p>
 
@@ -469,7 +475,7 @@
 
     <p ${pStyle}>${b} shall not accept after-sale request for "non-defective remorse returns", and has the right to accept or reject the request. ${b} will abide by the policy under this condition.</p>
 
-    <p ${pStyle}>If ${b} accepts the after-sale request for the reason type of "non-defective remorse returns" and require to deduct a "restocking &amp; repacking fee", under ${b}'s policy restriction, the "restocking &amp; repacking fee" in total deducted shall not exceed 35% of order total price.</p>
+    <p ${pStyle}>If ${b} accepts the after-sale request for the reason type of "non-defective remorse returns" and require to deduct a "restocking &amp; repacking fee", under ${bPos} policy restriction, the "restocking &amp; repacking fee" in total deducted shall not exceed 35% of order total price.</p>
 
     <p ${pStyle}>${b} shall not require warranty, like whether to provide warranty or not, or the way of warranty handling with.</p>
 
