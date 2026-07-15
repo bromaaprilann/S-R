@@ -698,6 +698,11 @@
 </div>`;
                 }
 
+                // Add a <br> immediately after every closing </p> so paragraph
+                // spacing survives platforms (e.g. Warhead) that strip inline
+                // margin/style CSS when content is pasted in.
+                htmlContent = htmlContent.replace(/<\/p>/g, '</p><br>');
+
                 // ---- Render output ----
                 if (type === 'short') {
                     // show the RAW HTML code as text so it can be copied into a code editor
