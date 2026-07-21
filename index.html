@@ -703,10 +703,12 @@
                 // these extra spacers made section gaps too wide.
                 htmlContent = htmlContent.split('<p style="margin:0; line-height:1;">&nbsp;</p>').join('');
 
-                // Add a single <br> immediately after every closing </p> so
-                // paragraph spacing survives platforms (e.g. Warhead) that
-                // strip inline margin/style CSS when content is pasted in.
-                htmlContent = htmlContent.replace(/<\/p>/g, '</p><br>');
+                // Add a single-line gap after every closing </p>. Some
+                // platforms (Warhead included) strip a bare, "empty" <br>
+                // on paste — wrapping a non-breaking space between two <br>
+                // tags gives the line actual content, so it survives the
+                // paste/sanitize step and still renders as one line gap.
+                htmlContent = htmlContent.replace(/<\/p>/g, '</p><br>&nbsp;<br>');
 
                 // ---- Render output ----
                 if (type === 'short') {
