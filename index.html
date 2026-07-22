@@ -710,6 +710,12 @@
                 // paste/sanitize step and still renders as one line gap.
                 htmlContent = htmlContent.replace(/<\/p>/g, '</p><br>&nbsp;<br>');
 
+                // Also add the same line-gap after every bold section
+                // heading (e.g. "5. DEFECTIVE PRODUCTS...") so there's a
+                // visible break between the title and the paragraph below it.
+                htmlContent = htmlContent.replace(/<\/h3>/g, '</h3><br>&nbsp;<br>');
+                htmlContent = htmlContent.replace(/<\/h4>/g, '</h4><br>&nbsp;<br>');
+
                 // ---- Render output ----
                 if (type === 'short') {
                     // show the RAW HTML code as text so it can be copied into a code editor
