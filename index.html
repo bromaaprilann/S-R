@@ -716,6 +716,17 @@
                 htmlContent = htmlContent.replace(/<\/h3>/g, '</h3><br>&nbsp;<br>');
                 htmlContent = htmlContent.replace(/<\/h4>/g, '</h4><br>&nbsp;<br>');
 
+                // Same treatment for the top-level titles (e.g. "GENERAL
+                // TERMS & POLICY", "Shipping Policy", "Returns & Refunds
+                // Policy") so they get breathing room below them too.
+                htmlContent = htmlContent.replace(/<\/h2>/g, '</h2><br>&nbsp;<br>');
+
+                // Leading break at the very top of the content — Warhead
+                // shows its own built-in "Shipping & Returns" header above
+                // whatever gets pasted in, so this adds a gap between that
+                // built-in header and our "GENERAL TERMS & POLICY" title.
+                htmlContent = htmlContent.replace(/^(<div[^>]*>)/, '$1<br>&nbsp;<br>');
+
                 // ---- Render output ----
                 if (type === 'short') {
                     // show the RAW HTML code as text so it can be copied into a code editor
