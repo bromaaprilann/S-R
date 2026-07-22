@@ -721,11 +721,12 @@
                 // Policy") so they get breathing room below them too.
                 htmlContent = htmlContent.replace(/<\/h2>/g, '</h2><br>&nbsp;<br>');
 
-                // Leading break at the very top of the content — Warhead
+                // Leading spacer at the very top of the content — Warhead
                 // shows its own built-in "Shipping & Returns" header above
-                // whatever gets pasted in, so this adds a gap between that
-                // built-in header and our "GENERAL TERMS & POLICY" title.
-                htmlContent = htmlContent.replace(/^(<div[^>]*>)/, '$1<br>&nbsp;<br>');
+                // whatever gets pasted in, so this adds a fixed 2-inch gap
+                // between that built-in header and our "GENERAL TERMS &
+                // POLICY" title, instead of a line-break-sized gap.
+                htmlContent = htmlContent.replace(/^(<div[^>]*>)/, '$1<div style="height:2in;"></div>');
 
                 // ---- Render output ----
                 if (type === 'short') {
