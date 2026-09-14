@@ -1,756 +1,611 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WSC | Shipping Policy Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        /* --- PREMIUM VIBRANT THEME VARIABLES --- */
-        :root { 
-            --primary: #2563eb; 
-            --primary-hover: #1d4ed8;
-            --accent-purple: #8b5cf6;
-            --accent-pink: #ec4899;
-            
-            --vibrant-gradient: linear-gradient(135deg, #2563eb 0%, #8b5cf6 50%, #ec4899 100%);
-            --vibrant-moving: linear-gradient(270deg, #2563eb, #8b5cf6, #ec4899, #2563eb);
-            --vibrant-glow: 0 10px 25px rgba(139, 92, 246, 0.35);
-            
-            --surface: #ffffff; 
-            --bg-main: #f1f5f9;
-            --text-main: #0f172a; 
-            --text-sub: #475569; 
-            --doc-red: #ef4444; 
-            
-            --border-glass: rgba(255, 255, 255, 0.9); 
-            --card-bg: rgba(255, 255, 255, 0.95);
-            
-            --input-bg: #f8fafc; 
-            --input-border: #cbd5e1;
-            
-            --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.04);
-            --shadow-float: 0 20px 40px rgba(139, 92, 246, 0.12);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        /* --- STUNNING DARK MODE --- */
-        body.dark-mode {
-            --primary: #3b82f6; 
-            --bg-main: #020617; 
-            --text-main: #f8fafc; 
-            --text-sub: #94a3b8; 
-            
-            --border-glass: rgba(255, 255, 255, 0.05); 
-            --card-bg: rgba(30, 41, 59, 0.85);
-            
-            --input-bg: #0f172a; 
-            --input-border: #334155;
-            
-            --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.4); 
-            --shadow-float: 0 20px 50px rgba(139, 92, 246, 0.2);
-        }
+<title>WSC Policy Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --primary: #2563eb;
+        --primary-hover: #1d4ed8;
+        --accent-purple: #8b5cf6;
+        --accent-pink: #ec4899;
+        --vibrant-gradient: linear-gradient(135deg, #2563eb 0%, #8b5cf6 50%, #ec4899 100%);
+        --vibrant-moving: linear-gradient(270deg, #2563eb, #8b5cf6, #ec4899, #2563eb);
+        --vibrant-glow: 0 10px 25px rgba(139, 92, 246, 0.35);
+        --surface: #ffffff;
+        --bg-main: #f1f5f9;
+        --text-main: #0f172a;
+        --text-sub: #475569;
+        --doc-red: #ef4444;
+        --border-glass: rgba(255,255,255,0.9);
+        --card-bg: rgba(255,255,255,0.95);
+        --input-bg: #f8fafc;
+        --input-border: #cbd5e1;
+        --shadow-soft: 0 8px 30px rgba(0,0,0,0.04);
+        --shadow-float: 0 20px 40px rgba(139,92,246,0.12);
+    }
+    body.dark-mode {
+        --primary: #3b82f6;
+        --bg-main: #020617;
+        --text-main: #f8fafc;
+        --text-sub: #94a3b8;
+        --border-glass: rgba(255,255,255,0.05);
+        --card-bg: rgba(30,41,59,0.85);
+        --input-bg: #0f172a;
+        --input-border: #334155;
+        --shadow-soft: 0 8px 30px rgba(0,0,0,0.4);
+        --shadow-float: 0 20px 50px rgba(139,92,246,0.2);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background: var(--bg-main);
+        color: var(--text-main);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        min-height: 100vh;
+        transition: background-color 0.5s ease;
+    }
+    .ambient-bg {
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden;
+        background-image:
+            radial-gradient(circle at 10% 30%, rgba(37,99,235,0.15), transparent 40%),
+            radial-gradient(circle at 90% 20%, rgba(139,92,246,0.15), transparent 40%),
+            radial-gradient(circle at 50% 80%, rgba(236,72,153,0.1), transparent 50%),
+            linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+        background-size: 100% 100%, 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+        animation: pulseBg 20s infinite alternate ease-in-out;
+    }
+    body.dark-mode .ambient-bg {
+        background-image:
+            radial-gradient(circle at 10% 30%, rgba(37,99,235,0.08), transparent 40%),
+            radial-gradient(circle at 90% 20%, rgba(139,92,246,0.08), transparent 40%),
+            radial-gradient(circle at 50% 80%, rgba(236,72,153,0.05), transparent 50%),
+            linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    }
+    @keyframes pulseBg { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+    .standalone-wrapper {
+        width: 100%; max-width: 950px; z-index: 1; display: flex; flex-direction: column; gap: 24px;
+        animation: fadeIn 0.6s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-main); color: var(--text-main); 
-            display: flex; justify-content: center; align-items: center; 
-            padding: 20px; min-height: 100vh; transition: background-color 0.5s ease;
-        }
+    .top-header {
+        display: flex; align-items: center; justify-content: space-between;
+        background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-glass);
+        padding: 20px 30px; border-radius: 20px; box-shadow: var(--shadow-soft);
+    }
+    .top-header h2 {
+        font-size: 22px; font-weight: 800;
+        background: var(--vibrant-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        letter-spacing: -0.5px; display: flex; align-items: center; gap: 12px; margin: 0;
+    }
+    .icon-btn {
+        background: var(--surface); border: 1px solid var(--border-glass); font-size: 18px; cursor: pointer;
+        width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+        transition: all 0.3s ease; color: var(--text-main); box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+    .icon-btn:hover { transform: translateY(-3px) scale(1.05); border-color: var(--primary); color: var(--primary); box-shadow: 0 8px 20px rgba(37,99,235,0.2); }
+    body.dark-mode .icon-btn { background: #0f172a; }
 
-        /* Ambient Glowing Orbs with Tech Grid */
-        .ambient-bg {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 30%, rgba(37, 99, 235, 0.15), transparent 40%), 
-                radial-gradient(circle at 90% 20%, rgba(139, 92, 246, 0.15), transparent 40%), 
-                radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.1), transparent 50%),
-                linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 100% 100%, 30px 30px, 30px 30px;
-            animation: pulseBg 20s infinite alternate ease-in-out;
-        }
+    .generator-card {
+        background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-glass);
+        border-radius: 28px; padding: 40px; box-shadow: var(--shadow-float); transition: all 0.4s ease;
+    }
+    .generator-card:hover { transform: translateY(-4px); border-color: rgba(139,92,246,0.3); }
 
-        body.dark-mode .ambient-bg { 
-            background-image: 
-                radial-gradient(circle at 10% 30%, rgba(37, 99, 235, 0.08), transparent 40%), 
-                radial-gradient(circle at 90% 20%, rgba(139, 92, 246, 0.08), transparent 40%), 
-                radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.05), transparent 50%),
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-        }
+    .card-header-badge { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+    .badge-icon {
+        width: 40px; height: 40px; background: var(--vibrant-gradient); border-radius: 12px;
+        display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;
+        box-shadow: var(--vibrant-glow);
+    }
+    .generator-card h3 { font-size: 22px; font-weight: 800; color: var(--text-main); letter-spacing: -0.3px; }
+    .generator-card p { font-size: 15px; color: var(--text-sub); margin-bottom: 28px; line-height: 1.6; }
 
-        @keyframes pulseBg { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+    .input-grid-4 { display: grid; grid-template-columns: repeat(1, 1fr); gap: 16px; margin-bottom: 24px; }
+    @media (min-width: 600px) { .input-grid-4 { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 900px) { .input-grid-4 { grid-template-columns: repeat(4, 1fr); } }
 
-        /* --- STANDALONE CONTAINER --- */
-        .standalone-wrapper {
-            width: 100%; max-width: 950px; z-index: 1; display: flex; flex-direction: column; gap: 24px;
-            animation: fadeIn 0.6s ease;
-        }
+    .input-field-gen {
+        padding: 16px 20px; font-size: 14px; background: var(--input-bg); color: var(--text-main);
+        border: 1px solid var(--input-border); border-radius: 14px; width: 100%; outline: none;
+        transition: all 0.3s ease; font-family: inherit;
+    }
+    .input-field-gen:focus {
+        border-color: var(--accent-purple); box-shadow: 0 0 0 4px rgba(139,92,246,0.2);
+        background: var(--surface); transform: translateY(-2px);
+    }
+    body.dark-mode .input-field-gen { color: var(--text-main); }
+    body.dark-mode .input-field-gen:focus { background: #1e293b; color: var(--text-main); }
+    body.dark-mode .input-field-gen::placeholder { color: var(--text-sub); }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .btn-group { display: flex; gap: 16px; margin-bottom: 24px; }
 
-        /* --- HEADER --- */
-        .top-header { 
-            display: flex; align-items: center; justify-content: space-between; 
-            background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-glass); 
-            padding: 20px 30px; border-radius: 20px; box-shadow: var(--shadow-soft);
-        }
-        .top-header h2 { font-size: 22px; font-weight: 800; background: var(--vibrant-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; display: flex; align-items: center; gap: 12px; margin: 0;}
-        .icon-btn { background: var(--surface); border: 1px solid var(--border-glass); font-size: 18px; cursor: pointer; width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; color: var(--text-main); box-shadow: 0 4px 10px rgba(0,0,0,0.03);}
-        .icon-btn:hover { transform: translateY(-3px) scale(1.05); border-color: var(--primary); color: var(--primary); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);}
-        body.dark-mode .icon-btn { background: #0f172a; }
+    .generate-btn {
+        flex: 1; background: var(--vibrant-moving); background-size: 300% 300%;
+        color: white; border: none; padding: 16px; border-radius: 14px;
+        font-weight: 800; font-size: 15px; cursor: pointer; transition: all 0.3s ease;
+        font-family: inherit; margin: 0; box-shadow: var(--vibrant-glow);
+    }
+    .generate-btn:hover { animation: flowProgress 3s ease infinite; transform: translateY(-2px); filter: brightness(1.1); }
+    @keyframes flowProgress { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* --- GENERATOR CARD --- */
-        .generator-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-glass); border-radius: 28px; padding: 40px; box-shadow: var(--shadow-float); transition: all 0.4s ease;}
-        .generator-card:hover { transform: translateY(-4px); border-color: rgba(139, 92, 246, 0.3); }
-        
-        .card-header-badge { display: flex; align-items: center; gap: 14px; margin-bottom: 12px;}
-        .badge-icon { width: 40px; height: 40px; background: var(--vibrant-gradient); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; box-shadow: var(--vibrant-glow);}
-        
-        .generator-card h3 { font-size: 22px; font-weight: 800; color: var(--text-main); letter-spacing: -0.3px;}
-        .generator-card p { font-size: 15px; color: var(--text-sub); margin-bottom: 28px; line-height: 1.6;}
+    .reset-btn {
+        width: 56px; flex-shrink: 0; background: var(--surface); color: var(--text-sub);
+        border: 1px solid var(--input-border); border-radius: 14px; cursor: pointer;
+        transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;
+    }
+    .reset-btn:hover { background: rgba(239,68,68,0.1); color: var(--doc-red); border-color: rgba(239,68,68,0.3); transform: translateY(-2px); }
+    .reset-btn svg { transition: transform 0.5s ease; }
+    .reset-btn:hover svg { transform: rotate(180deg); }
 
-        .input-grid-4 { display: grid; grid-template-columns: repeat(1, 1fr); gap: 16px; margin-bottom: 24px; }
-        @media (min-width: 600px) { .input-grid-4 { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 900px) { .input-grid-4 { grid-template-columns: repeat(4, 1fr); } }
-        
-        .input-field-gen { padding: 16px 20px; font-size: 14px; background: var(--input-bg); color: var(--text-main); border: 1px solid var(--input-border); border-radius: 14px; width: 100%; outline: none; transition: all 0.3s ease; font-family: inherit;}
-        .input-field-gen:focus { border-color: var(--accent-purple); box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2); background: var(--surface); transform: translateY(-2px);}
-        /* In dark mode, keep focused fields dark so typed text stays readable (don't flip to white) */
-        body.dark-mode .input-field-gen { color: var(--text-main); }
-        body.dark-mode .input-field-gen:focus { background: #1e293b; color: var(--text-main); }
-        body.dark-mode .input-field-gen::placeholder { color: var(--text-sub); }
-        
-        .btn-group { display: flex; gap: 16px; margin-bottom: 24px; }
-        
-        .generate-btn { flex: 1; background: var(--vibrant-moving); background-size: 300% 300%; color: white; border: none; padding: 16px; border-radius: 14px; font-weight: 800; font-size: 15px; cursor: pointer; transition: all 0.3s ease; font-family: inherit; margin: 0; box-shadow: var(--vibrant-glow);}
-        .generate-btn:hover { animation: flowProgress 3s ease infinite; transform: translateY(-2px); filter: brightness(1.1);}
-        @keyframes flowProgress { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .output-box {
+        width: 100%; height: 450px; padding: 24px; border-radius: 16px;
+        border: 1px solid var(--input-border); font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 15px; color: var(--text-main); background: var(--input-bg);
+        overflow-y: auto; outline: none; transition: all 0.3s ease; resize: vertical;
+    }
+    .output-box:focus { border-color: var(--primary); background: var(--surface); box-shadow: 0 0 0 4px rgba(37,99,235,0.1); }
+    .output-box[contenteditable]:empty::before { content: attr(placeholder); color: var(--text-sub); pointer-events: none; display: block; }
 
-        .reset-btn { width: 56px; flex-shrink: 0; background: var(--surface); color: var(--text-sub); border: 1px solid var(--input-border); border-radius: 14px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
-        .reset-btn:hover { background: rgba(239, 68, 68, 0.1); color: var(--doc-red); border-color: rgba(239, 68, 68, 0.3); transform: translateY(-2px);}
-        .reset-btn svg { transition: transform 0.5s ease; }
-        .reset-btn:hover svg { transform: rotate(180deg); }
+    .text-stats {
+        display: flex; align-items: center; gap: 15px; font-size: 13px; color: var(--text-sub);
+        margin-top: 14px; font-weight: 600; background: var(--surface); padding: 10px 20px;
+        border-radius: 50px; border: 1px solid var(--border-glass); width: fit-content;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
 
-        .output-box { width: 100%; height: 450px; padding: 24px; border-radius: 16px; border: 1px solid var(--input-border); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; color: var(--text-main); background: var(--input-bg); overflow-y: auto; outline: none; transition: all 0.3s ease; resize: vertical;}
-        .output-box:focus { border-color: var(--primary); background: var(--surface); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);}
-        
-        .output-box[contenteditable]:empty::before { content: attr(placeholder); color: var(--text-sub); pointer-events: none; display: block; }
-        
-        .text-stats { display: flex; align-items: center; gap: 15px; font-size: 13px; color: var(--text-sub); margin-top: 14px; font-weight: 600; background: var(--surface); padding: 10px 20px; border-radius: 50px; border: 1px solid var(--border-glass); width: fit-content; box-shadow: 0 4px 10px rgba(0,0,0,0.02);}
+    .btn-copy-themed {
+        position: absolute; top: 20px; right: 20px; background: var(--surface); color: var(--text-main);
+        border: 1px solid var(--input-border); padding: 10px 20px; border-radius: 10px;
+        font-weight: 800; font-size: 12px; cursor: pointer; transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05); z-index: 10;
+    }
+    .btn-copy-themed:hover {
+        background: var(--vibrant-gradient); color: white; border-color: transparent;
+        box-shadow: var(--vibrant-glow); transform: translateY(-2px);
+    }
+    body.dark-mode .btn-copy-themed { background: var(--input-bg); color: #fff; border-color: #334155; }
+</style>
 
-        .btn-copy-themed { position: absolute; top: 20px; right: 20px; background: var(--surface); color: var(--text-main); border: 1px solid var(--input-border); padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 12px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.05); z-index: 10;}
-        .btn-copy-themed:hover { background: var(--vibrant-gradient); color: white; border-color: transparent; box-shadow: var(--vibrant-glow); transform: translateY(-2px);}
-        body.dark-mode .btn-copy-themed { background: var(--input-bg); color: #fff; border-color: #334155; }
+<div class="ambient-bg"></div>
 
-    </style>
-</head>
-<body>
+<div class="standalone-wrapper">
+    <header class="top-header">
+        <h2><span style="font-size:26px;">&#10070;</span> WSC Policy Tools</h2>
+        <button class="icon-btn" onclick="toggleTheme()" title="Toggle Day/Night Mode" id="themeBtn">&#127769;</button>
+    </header>
 
-    <div class="ambient-bg"></div>
+    <div class="generator-card">
+        <div class="card-header-badge">
+            <div class="badge-icon">&#128230;</div>
+            <h3>General Terms &amp; Policy Generator</h3>
+        </div>
+        <p>Fill in the client details below and select your format to instantly generate a complete, compliant policy document.</p>
 
-    <div class="standalone-wrapper">
-        <header class="top-header">
-            <h2><span style="font-size: 26px;">&#10070;</span> WSC Policy Tools</h2>
-            <button class="icon-btn" onclick="toggleTheme()" title="Toggle Day/Night Mode" id="themeBtn">&#127769;</button>
-        </header>
+        <div class="input-grid-4">
+            <input type="text" id="shippingBizName" class="input-field-gen" placeholder="Business Name" aria-label="Business Name">
+            <input type="text" id="shippingContactInput" class="input-field-gen" placeholder="Contact Page Link or Email" aria-label="Contact Page Link or Email">
+            <input type="text" id="shippingEmailInput" class="input-field-gen" placeholder="Business Email" aria-label="Business Email">
+            <input type="text" id="shippingUrlInput" class="input-field-gen" placeholder="Website URL (e.g. example.com)" onblur="formatUrl(this)" aria-label="Website URL">
+        </div>
 
-        <div class="generator-card">
-  <div class="card-header-badge">
-    <div class="badge-icon">&#128230;</div>
-    <h3>General Terms &amp; Policy Generator</h3>
-  </div>
-  <p>Fill in the client details below and select your format to instantly generate a complete, compliant policy document.</p>
+        <div style="margin-bottom:24px;">
+            <label style="font-size:13px;font-weight:800;color:var(--text-main);margin-bottom:8px;display:block;text-transform:uppercase;letter-spacing:0.5px;">Select Policy Format</label>
+            <select id="shippingPolicyType" class="input-field-gen" style="cursor:pointer;" onchange="toggleInstructionBox()">
+                <option value="long">Option 1: Detailed General Policy (Visual Preview)</option>
+                <option value="short">Option 2: Standard Short Policy (Raw HTML Code)</option>
+            </select>
+        </div>
 
-  <div class="input-grid-4">
-    <input type="text" id="shippingBizName" class="input-field-gen" placeholder="Business Name" aria-label="Business Name">
-    <input type="text" id="shippingContactInput" class="input-field-gen" placeholder="Contact Page Link or Email" aria-label="Contact Page Link or Email">
-    <input type="text" id="shippingEmailInput" class="input-field-gen" placeholder="Business Email" aria-label="Business Email">
-    <input type="text" id="shippingUrlInput" class="input-field-gen" placeholder="Website URL (e.g. example.com)" onblur="formatUrl(this)" aria-label="Website URL">
-  </div>
+        <div class="btn-group">
+            <button type="button" onclick="generateShipping()" class="generate-btn">&#10024; Generate Policy</button>
+            <button type="button" onclick="resetShipping(event)" class="reset-btn" title="Reset Fields">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            </button>
+        </div>
 
-  <div style="margin-bottom: 24px;">
-    <label style="font-size: 13px; font-weight: 800; color: var(--text-main); margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 0.5px;">Select Policy Format</label>
-    <select id="shippingPolicyType" class="input-field-gen" style="cursor: pointer;" onchange="toggleInstructionBox()">
-      <option value="long">Option 1: Detailed General Policy (Visual Preview)</option>
-      <option value="short">Option 2: Standard Short Policy (Raw HTML Code)</option>
-    </select>
-  </div>
+        <div id="instructionBox" style="display:none;margin-bottom:24px;background:rgba(37,99,235,0.08);border:1px solid var(--primary);padding:16px;border-radius:14px;font-size:14px;color:var(--text-main);text-align:left;">
+            <strong style="font-weight:bold;">&#128161; Pro Tip:</strong> Before pasting this HTML into your website, click the <strong style="font-weight:bold;">&lt;/&gt; Code View</strong> button in your text editor.
+        </div>
 
-  <div class="btn-group">
-    <button type="button" onclick="generateShipping()" class="generate-btn">&#10024; Generate Policy</button>
-    <button type="button" onclick="resetShipping(event)" class="reset-btn" title="Reset Fields">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-    </button>
-  </div>
-
-  <div id="instructionBox" style="display: none; margin-bottom: 24px; background: rgba(37, 99, 235, 0.08); border: 1px solid var(--primary); padding: 16px; border-radius: 14px; font-size: 14px; color: var(--text-main); text-align: left;">
-    <strong style="font-weight: bold;">&#128161; Pro Tip:</strong> Before pasting this HTML into your website, click the <strong style="font-weight: bold;">&lt;/&gt; Code View</strong> button in your text editor.
-  </div>
-
-  <div style="position: relative;">
-    <div id="shippingOutput" class="output-box" contenteditable="true" placeholder="Your custom policy will appear here..." oninput="updateStats('shippingOutput', 'shippingStats')"></div>
-
-    <button type="button" onclick="copyText(this, 'shippingOutput')" class="btn-copy-themed">Copy Text</button>
-
-    <div id="shippingStats" class="text-stats" aria-live="polite">&#128202; <b>0</b> words &nbsp;|&nbsp; &#9201;&#65039; <b>~0</b> min read</div>
-  </div>
+        <div style="position:relative;">
+            <div id="shippingOutput" class="output-box" contenteditable="true" placeholder="Your custom policy will appear here..." oninput="updateStats('shippingOutput','shippingStats')"></div>
+            <button type="button" onclick="copyText(this,'shippingOutput')" class="btn-copy-themed">Copy Text</button>
+            <div id="shippingStats" class="text-stats" aria-live="polite">&#128202; <b>0</b> words &nbsp;|&nbsp; &#9201;&#65039; <b>~0</b> min read</div>
+        </div>
+    </div>
 </div>
 
-    <script>
-        /* ============================================================
-           FONT SIZE CONTROLS  (edit these numbers to taste)
-           ------------------------------------------------------------
-           Option 1 (Detailed / Visual Preview) heading + body sizes.
-           Values are in px. Lower = smaller text.
-        ============================================================ */
-        var FONT = {
-            title:   28,  // main "General Terms & Policy" heading
-            section: 21,  // numbered sections e.g. "2. Goods Returned in Transit"
-            sub:     18,  // sub-sections e.g. "3.1 Orders Delayed"
-            body:    16   // paragraph text
-        };
+<script>
+    var FONT = { title: 28, section: 21, sub: 18, body: 16 };
 
-        function toggleTheme() {
-            const body = document.body;
-            const btn = document.getElementById('themeBtn');
-            body.classList.toggle('dark-mode');
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        var isDark = document.body.classList.contains('dark-mode');
+        document.getElementById('themeBtn').innerText = isDark ? '☀️' : '🌙';
+        try { localStorage.setItem('kb_dark_mode', isDark ? 'true' : 'false'); } catch(e) {}
+    }
 
-            const isDark = body.classList.contains('dark-mode');
-            btn.innerText = isDark ? '\u2600\uFE0F' : '\uD83C\uDF19';
-
-            try {
-                localStorage.setItem('kb_dark_mode', isDark ? 'true' : 'false');
-            } catch (e) {
-                console.log("Local storage restricted.");
+    window.addEventListener('DOMContentLoaded', function() {
+        try {
+            if (localStorage.getItem('kb_dark_mode') === 'true') {
+                document.body.classList.add('dark-mode');
+                var btn = document.getElementById('themeBtn');
+                if (btn) btn.innerText = '☀️';
             }
-        }
-
-        window.addEventListener('DOMContentLoaded', function () {
-            try {
-                if (localStorage.getItem('kb_dark_mode') === 'true') {
-                    document.body.classList.add('dark-mode');
-                    const btn = document.getElementById('themeBtn');
-                    if (btn) btn.innerText = '\u2600\uFE0F';
-                }
-            } catch (e) {
-                console.log("Local storage restricted.");
-            }
-
-            document.getElementById('shippingOutput').addEventListener('input', function () {
-                updateStats('shippingOutput', 'shippingStats');
-            });
-        });
-
-        function toggleInstructionBox() {
-            const type = document.getElementById('shippingPolicyType').value;
-            const box = document.getElementById('instructionBox');
-            box.style.display = (type === 'short') ? 'block' : 'none';
-        }
-
-        function formatUrl(inputElement) {
-            let val = inputElement.value.trim();
-            if (val) {
-                val = val.replace(/^https?:\/\//i, '').replace(/\/$/, '');
-                if (!val.startsWith('www.')) {
-                    val = 'www.' + val;
-                }
-                inputElement.value = val;
-            }
-        }
-
-        /* ------------------------------------------------------------
-           Turn whatever the user typed into a VALID href.
-           - "info@store.com"        -> "mailto:info@store.com"
-           - "store.com/contact"     -> "https://store.com/contact"
-           - "https://store.com/x"   -> unchanged
-           - "mailto:x@y.com"        -> unchanged
-        ------------------------------------------------------------ */
-        function buildHref(value) {
-            let v = (value || '').trim();
-            if (!v) return '#';
-            if (/^mailto:/i.test(v)) return v;
-            if (/^https?:\/\//i.test(v)) return v;
-            // looks like a bare email address
-            if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return 'mailto:' + v;
-            // otherwise treat as a web address
-            return 'https://' + v.replace(/^\/+/, '');
-        }
-
-        function copyText(buttonElement, containerId) {
-            const container = document.getElementById(containerId);
-            if (!container.innerText.trim()) return;
-
-            const range = document.createRange();
-            range.selectNodeContents(container);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-
-            try {
-                document.execCommand('copy');
-                const originalText = buttonElement.innerText;
-                buttonElement.innerText = 'Copied!';
-                buttonElement.style.background = 'var(--primary)';
-                buttonElement.style.color = '#fff';
-                setTimeout(() => {
-                    buttonElement.innerText = originalText;
-                    buttonElement.style.background = '';
-                    buttonElement.style.color = '';
-                }, 2000);
-            } catch (err) {
-                console.error('Failed to copy text: ', err);
-            }
-            selection.removeAllRanges();
-        }
-
-        function updateStats(containerId, statsId) {
-            const text = document.getElementById(containerId).innerText;
-            const words = text.trim().split(/\s+/).filter(word => word.length > 0).length;
-            const readTime = Math.ceil(words / 200) || 1;
-
-            let htmlOutput = "\uD83D\uDCCA <b>" + words + "</b> words &nbsp;|&nbsp; \u23F1\uFE0F <b>~" + readTime + "</b> min read";
-            if (words === 0) { htmlOutput = "\uD83D\uDCCA <b>0</b> words &nbsp;|&nbsp; \u23F1\uFE0F <b>~0</b> min read"; }
-
-            document.getElementById(statsId).innerHTML = htmlOutput;
-        }
-
-        function visualReset(btn) {
-            btn.style.transform = 'scale(0.9)';
-            btn.style.backgroundColor = 'var(--doc-red)';
-            btn.style.color = 'white';
-            setTimeout(() => {
-                btn.style.transform = '';
-                btn.style.backgroundColor = '';
-                btn.style.color = '';
-            }, 200);
-        }
-
-        function resetShipping(e) {
-            visualReset(e.currentTarget);
-            document.getElementById('shippingBizName').value = '';
-            document.getElementById('shippingUrlInput').value = '';
-            document.getElementById('shippingContactInput').value = '';
-            document.getElementById('shippingEmailInput').value = '';
-            document.getElementById('shippingPolicyType').value = 'long';
-            document.getElementById('shippingOutput').innerHTML = '';
-            document.getElementById('instructionBox').style.display = 'none';
+        } catch(e) {}
+        document.getElementById('shippingOutput').addEventListener('input', function() {
             updateStats('shippingOutput', 'shippingStats');
+        });
+    });
+
+    function toggleInstructionBox() {
+        var type = document.getElementById('shippingPolicyType').value;
+        document.getElementById('instructionBox').style.display = (type === 'short') ? 'block' : 'none';
+    }
+
+    function formatUrl(el) {
+        var val = el.value.trim();
+        if (val) {
+            val = val.replace(/^https?:\/\//i,'').replace(/\/$/,'');
+            if (!val.startsWith('www.')) val = 'www.' + val;
+            el.value = val;
         }
-
-        function generateShipping() {
-            try {
-                const b = document.getElementById('shippingBizName').value || '[BUSINESS NAME]';
-                // Possessive form: "Dreams'" if the name ends in s, otherwise "Acme's"
-                const bPos = /s$/i.test(b) ? b + "'" : b + "'s";
-                const email = document.getElementById('shippingEmailInput').value || '[BUSINESS EMAIL ADDRESS]';
-                const type = document.getElementById('shippingPolicyType').value;
-                const outputBox = document.getElementById('shippingOutput');
-
-                // --- CONTACT LINK (fixed) ---
-                const contactRaw = document.getElementById('shippingContactInput').value.trim();
-                const contactText = contactRaw || '[CONTACT US PAGE LINK]';
-                const contactHref = contactRaw ? buildHref(contactRaw) : '#';
-
-                // --- WEBSITE URL (fixed) ---
-                let urlInput = document.getElementById('shippingUrlInput').value.trim();
-                let urlLinkOpt1 = '[WEBSITE URL LINK]';
-                if (urlInput !== '') {
-                    urlInput = urlInput.replace(/^https?:\/\//i, '').replace(/\/$/, '');
-                    if (!urlInput.startsWith('www.')) {
-                        urlInput = 'www.' + urlInput;
-                    }
-                    urlLinkOpt1 = '<a href="https://' + urlInput + '" target="_blank" rel="noopener" style="color: #2563eb; text-decoration: underline; font-weight: bold;">' + urlInput + '</a>';
-                }
-
-                // ==========================================
-                // OPTION 1 STYLES  (font sizes driven by FONT object above)
-                // ==========================================
-                const pStyle = 'style="text-align: left; margin: 0 0 20px 0; line-height: 1.75; font-size: ' + FONT.body + 'px; color: #1f2937;"';
-
-                const h2TopStyle = 'style="text-align: left; margin: 0 0 28px 0; border-bottom: 3px solid #e5e7eb; padding-bottom: 12px; font-size: ' + FONT.title + 'px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #000000;"';
-                const h3Style = 'style="text-align: left; margin: 40px 0 14px 0; font-size: ' + FONT.section + 'px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; color: #000000;"';
-                const h4Style = 'style="text-align: left; margin: 28px 0 12px 0; font-size: ' + FONT.sub + 'px; font-weight: 700; color: #000000;"';
-
-                // ==========================================
-                // OPTION 2 CODE STYLES
-                // ==========================================
-                const pCode = 'style="text-align: left; margin: 0 0 16px 0; line-height: 1.6;"';
-                const h2TopCode = 'style="text-align: left; margin: 0 0 24px 0; border-bottom: 2px solid #ddd; padding-bottom: 10px; font-size: 1.6em; font-weight: 900; text-transform: uppercase;"';
-                const h2Code = 'style="text-align: left; margin: 40px 0 20px 0; border-bottom: 1px solid #ddd; padding-bottom: 10px; font-size: 1.35em; font-weight: 900; text-transform: uppercase;"';
-                const h3Code = 'style="text-align: left; margin: 24px 0 12px 0; font-size: 1.1em; font-weight: 900; text-transform: uppercase;"';
-                const ulCode = 'style="text-align: left; margin: 0 0 16px 0; padding-left: 24px; line-height: 1.6;"';
-                const liCode = 'style="text-align: left; margin-bottom: 8px;"';
-
-                let htmlContent = '';
-
-                if (type === 'short') {
-                    htmlContent = `<div style="text-align: left; font-family: inherit; width: 100%;">
-    <p ${pCode}>At <strong style="font-weight: bold;">${b}</strong>, we value your trust and aim to provide a smooth, transparent shopping experience.</p>
-
-    <h2 ${h2TopCode}>Shipping Policy</h2>
-
-    <h3 ${h3Code}>Processing Time</h3>
-    <p ${pCode}>Orders are processed within <strong style="font-weight: bold;">1&ndash;5 business days</strong> after payment confirmation.</p>
-
-    <h3 ${h3Code}>Estimated Delivery Times</h3>
-    <ul ${ulCode}>
-        <li ${liCode}>United States: <strong style="font-weight: bold;">5&ndash;15 business days</strong></li>
-        <li ${liCode}>International: <strong style="font-weight: bold;">10&ndash;25 business days</strong></li>
-    </ul>
-
-    <h3 ${h3Code}>Tracking Information</h3>
-    <p ${pCode}>A tracking number will be emailed once your order ships. Please allow a few days for tracking updates to appear.</p>
-
-    <h3 ${h3Code}>Multiple Shipments</h3>
-    <p ${pCode}>If you order multiple items, they may arrive in separate packages to speed delivery.</p>
-
-    <h3 ${h3Code}>Delays</h3>
-    <p ${pCode}>Delivery times are estimates. Holidays, customs checks, or carrier issues may cause delays outside our control.</p>
-
-    <h3 ${h3Code}>Incorrect Addresses</h3>
-    <p ${pCode}>Please double-check your shipping address. <strong style="font-weight: bold;">${b}</strong> is not responsible for undeliverable packages due to customer error.</p>
-
-    <h3 ${h3Code}>Customs &amp; Import Duties</h3>
-    <p ${pCode}>International customers are responsible for any customs fees, duties, or taxes.</p>
-
-    <h3 ${h3Code}>Lost or Stolen Packages</h3>
-    <p ${pCode}>If tracking shows delivered but you haven&rsquo;t received the package, contact your local carrier first. While <strong style="font-weight: bold;">${b}</strong> is not liable for lost or stolen packages, we&rsquo;ll do our best to assist you.</p>
-
-    <h2 ${h2Code}>Returns &amp; Refunds Policy</h2>
-    <p ${pCode}>We want you to love your purchase. If something goes wrong, here&rsquo;s how we handle it:</p>
-
-    <h3 ${h3Code}>Eligible for Refund, Replacement, or Reshipment</h3>
-    <ul ${ulCode}>
-        <li ${liCode}>Your item is <strong style="font-weight: bold;">defective, damaged, or incorrect</strong> (<em style="font-style: italic;">photo or video proof required</em>).</li>
-        <li ${liCode}>Your order has not arrived within <strong style="font-weight: bold;">45 days</strong>.</li>
-        <li ${liCode}>Your order is marked as <strong style="font-weight: bold;">destroyed in transit</strong> or returned to sender through no fault of your own.</li>
-    </ul>
-
-    <h3 ${h3Code}>Return Requests</h3>
-    <ul ${ulCode}>
-        <li ${liCode}>Contact us via <a href="${contactHref}" style="color: #2563eb; text-decoration: none;">Contact Us</a> before sending anything back.</li>
-        <li ${liCode}>Requests must be made within <strong style="font-weight: bold;">15 days of delivery</strong>. For best results, contact us by Day 10 if you&rsquo;re considering a return.</li>
-        <li ${liCode}>Customers are responsible for return shipping unless the item is defective, damaged, or incorrect.</li>
-    </ul>
-
-    <h3 ${h3Code}>Non-Returnable Items</h3>
-    <ul ${ulCode}>
-        <li ${liCode}>Buyer&rsquo;s remorse (change of mind, wrong size, personal preference).</li>
-        <li ${liCode}>Final sale or clearance items.</li>
-        <li ${liCode}>Items damaged due to misuse or mishandling.</li>
-    </ul>
-
-    <h3 ${h3Code}>Refunds</h3>
-    <ul ${ulCode}>
-        <li ${liCode}>We&rsquo;ll notify you once your return is received and inspected.</li>
-        <li ${liCode}>Approved refunds are typically processed to your original payment method within <strong style="font-weight: bold;">3&ndash;5 business days</strong>.</li>
-        <li ${liCode}>For low-cost items, we may suggest a partial refund or replacement rather than a return to speed up resolution.</li>
-    </ul>
-
-    <h3 ${h3Code}>Restocking &amp; Return Costs</h3>
-    <ul ${ulCode}>
-        <li ${liCode}>For <strong style="font-weight: bold;">non-defective</strong> returns, a restocking/repackaging fee of up to <strong style="font-weight: bold;">35%</strong> of the order value may apply, along with return shipping costs.</li>
-        <li ${liCode}>For defective/damaged returns, <strong style="font-weight: bold;">${b}</strong> will cover return shipping when necessary.</li>
-    </ul>
-
-    <h2 ${h2Code}>Need Help?</h2>
-    <p ${pCode}>If you have questions about your order, please reach out to <a href="${contactHref}" style="color: #2563eb; text-decoration: none;">Contact Us</a>.</p>
-</div>`;
-                } else {
-                    htmlContent = `<div style="text-align: left !important; font-family: inherit; width: 100% !important;">
-    <h2 ${h2TopStyle}><font color="#000000"><b>GENERAL TERMS &amp; POLICY</b></font></h2>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-
-    <p ${pStyle}>${b} reserves the right to update the rules when necessary, and the updated version will be published on ${urlLinkOpt1} with immediate effect. If you refuse to accept the policy, you are deemed to have waived the use of the services provided by ${b} immediately. All buyers are deemed to accept the rules if they are using the services provided by ${b}. ${bPos} policy shall prevail.</p>
-
-    <p ${pStyle}>For after-sales issues, buyers should file a return &amp; refund request within 25 days of the delivery date. The period of Return &amp; Refund request filed exceeds, ${b} reserves the right not to provide any after-sales service after that time.</p>
-
-    <p ${pStyle}>Before an order is shipped out, the buyer has the right to apply to cancel the order by contacting ${b} via <a href="${contactHref}" style="color: #2563eb; text-decoration: none;">Contact Us</a>.</p>
-
-    <p ${pStyle}>If ${b} cannot fulfill the buyer's order within the order processing time, under the condition but not limited to no stock or other conditions, ${b} has the right to cancel and refund the order.</p>
-
-    <p ${pStyle}>If the buyer receives goods damaged or broken and applies for a refund with compelling evidence, and the goods need to be returned, ${b} has the responsibility to offer the buyer a prepaid return label within 3 business days to return damaged/broken goods. ${b} should refund the buyer when the return shows as in transit on the logistic website with the provided prepaid return label.</p>
-
-    <p ${pStyle}>${b} shall not accept after-sale request for "non-defective remorse returns", and has the right to accept or reject the request. ${b} will abide by the policy under this condition.</p>
-
-    <p ${pStyle}>If ${b} accepts the after-sale request for the reason type of "non-defective remorse returns" and require to deduct a "restocking &amp; repacking fee", under ${bPos} policy restriction, the "restocking &amp; repacking fee" in total deducted shall not exceed 35% of order total price.</p>
-
-    <p ${pStyle}>${b} shall not require warranty, like whether to provide warranty or not, or the way of warranty handling with.</p>
-
-    <p ${pStyle}>${b} shall restrict with the refund time and redelivery time under the condition, included but not limited to order refund based on the policy, agree on refund or redelivery between ${b} and buyer or others, ${b} must refund not more than 3 business days, or redelivery not more than 5 business days.</p>
-
-    <p ${pStyle}>Once the buyer submits the after-sales request, the buyer needs to provide evidence (as the clause states below) to ${b}. If the buyer cannot provide compelling evidence within the order after-sales period policy indicated, ${b} has the right to reject the return and refund request.</p>
-
-    <p ${pStyle}>Whether the evidence is compelling or not will ultimately be determined by ${b} Under Various Circumstances:</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h3 ${h3Style}><font color="#000000"><b>1. REFUND REQUEST TIMING</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>The buyer has the right to apply for a full refund for the order that was not shipped out within the stated processing time (subject to the estimated processing time displayed on the order page).</p>
-    <p ${pStyle}><strong style="font-weight: bold;">Return &amp; Refund Type ${b} Rules</strong></p>
-    <p ${pStyle}><strong style="font-weight: bold;">For Unshipped Orders:</strong><br>
-    The Return &amp; Refund request is made after the stated processing time. ${b} will refund the order. The Return &amp; Refund request is made within the stated processing time. <br>
-    ${b} has 3 business days to process the request after the buyer submits it. If ${b} fails to process (accept or reject) the refund request within 3 business days, ${b} will refund the order.<br>
-    <em style="font-style: italic;">Please note:</em> Although the order is still within the stated processing time, any refund request needs to be processed within the time listed above.</p>
-    <p ${pStyle}><strong style="font-weight: bold;">For Shipped Orders:</strong><br>
-    The Return &amp; Refund request is made after the order has shipped. ${b} has 10 business days to process the request after the buyer submits it. If ${b} fails to process (accept or reject) the refund request within 10 business days, ${b} will refund the order.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h3 ${h3Style}><font color="#000000"><b>2. GOODS RETURNED IN TRANSIT</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>If the package is sent back to ${b} during transit for any reason, and the buyer applies for a refund, ${b} should refund within 3 business days of the refund request. Under the same cases, if the buyer requests redelivery, ${b} should begin redelivery within 5 business days of the request date.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h3 ${h3Style}><font color="#000000"><b>3. GOODS DESTROYED IN TRANSIT</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>If the package/goods are destroyed in transit, and buyer has proof from the logistics website such as but not limited to a screenshot from the logistics website that the order was destroyed, ${b} should refund the order within 3 business days of buyer's refund request, or redelivery within 5 business days of the request. The following steps must be followed when creating this type of request.</p>
-    <p ${pStyle}>a. Photos or videos of the damaged item to prove damage. If the photo cannot prove the products are damaged, please upload the video.<br>
-    b. Screenshot of the e-mail or dispute received including name, date and content. In other words, a customer has sent the complaint (Through PayPal Dispute or other Gateway, e-mail, etc.).<br>
-    c. The products need to be returned to ${b}, if our Dispute Team asks for a return in Disputes.</p>
-    <p ${pStyle}>Except for the important interpretation, ${b} will make a refund, resend, or accept the return for any of the following cases:</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>3.1 ORDERS DELAYED</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>Orders are lacking tracking information, in transit, pending, expired 60 days after orders departed from ${b} warehouse. Following countries and shipping methods may be different:</p>
-    <p ${pStyle}>a. For orders shipped to the USA, it will be counted 45 days after orders departed from ${b} warehouse.<br>
-    b. For Brazil, it is after 110 days counting from the date that order departed from ${b} warehouse due to the strict customs clearance at Brazil.<br>
-    c. For ${b}Packet Liquid Line to all countries, ${b} will deal with your dispute for delayed orders after 100 days counting from the date that order departed from ${b} warehouse.<br>
-    d. For some special shipping methods, ${b} cannot deal with your disputes. (See the following important interpretation)</p>
-    <p ${pStyle}><strong style="font-weight: bold;">Notes:</strong><br>
-    Sometimes, the order had arrived at the nearest post office to the buyer and make it pending because of insufficient address, package unclaimed, no such number, etc. It will be much more convenient for clients to contact the local post office or go to the post office for delivery.<br><br>
-    Due to such conditions as national realities, phone numbers, and religious beliefs in Israel, packages will be normally delivered to self pick-up cabinets, which may lead to packages being long overdue. Therefore, it will be much more convenient for clients to contact the local post office or go to the post office for delivery.<br><br>
-    Sometimes, local tracking numbers may show a sign for delivery, but the end customer claims that the package has not been received. In such cases, ${b} will spare no effort to verify the real situation, which could be a long process (1-2 months), but there is no guarantee of a positive result.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>3.2 ORDERS NOT RECEIVED</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>${b} will not deal with the refund or resend if the tracking information shows the order is delivered.</p>
-    <p ${pStyle}>a. If clients do not receive the package, a non-delivery certification issued by the local post office with an official seal is necessary.<br>
-    b. Tracking information alert. The tracking information shows Alert, the reasons are listed as below:<br>
-    a) Incorrect/insufficient address.<br>
-    b) No such number.<br>
-    c) Unknown recipient.<br>
-    d) Refused.<br>
-    e) Do not pick up in time.<br>
-    f) No safe delivery location.<br>
-    g) Uncleared customs.<br>
-    h) Others.</p>
-    <p ${pStyle}><strong style="font-weight: bold;">Notes:</strong><br>
-    a. The local distributor will deliver 1-3 times according to the actual situation. If it is still unclaimed during the delivery period, it will be returned to the local post office for storage in 3-7 days. Meanwhile, clients need to pick up the package by themselves. Otherwise, the product will be returned to the sender, our logistics company. During the return, ${b} takes no responsibility if products have been lost.<br><br>
-    b. If the logistics company provides return service to US, ${b} will put the products in your private inventory and will not refund them when we receive the returned items.<br><br>
-    c. ${b} cannot offer a refund or resend if you don&rsquo;t process the undelivered orders or packages destroyed by logistics companies.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>3.3 PRODUCTS DAMAGED</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>${b} offers a full refund or a replacement if packages arrived are badly damaged.<br>
-    ${b} offers a partial refund or a replacement if packages arrived partially damaged (except thread, slightly wrinkled, small scratches etc.).</p>
-    <p ${pStyle}><strong style="font-weight: bold;">Notes:</strong><br>
-    a. For fragile products, a refund is highly recommended.<br>
-    b. For damaged packing boxes, ${b} cannot offer any refunds or other after-sale services due to the long-distant international delivery.<br>
-    c. For ordinary, electronic products, Your clients shall complain or open a dispute to you within 30 days after packages are delivered.<br>
-    d. For service products, ${b} refunds you the cost of the product which is the price in the US market. Otherwise, ${b} will not take any responsibility for them.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>3.4 INCORRECT OR MISSING PRODUCTS</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>${b} has a strict quality control process before products are dispatched. <br>
-    ${b} will deal with incorrect or missing products as follows:</p>
-    <p ${pStyle}>a. For incorrect products, ${b} offers a full refund or replacement.<br>
-    b. For products with wrong color, size which doesn't affect product function, etc., ${b} offers a refund or resend if you provide a screenshot of your complaint including name, content and date.<br>
-    c. For parts missing which don't affect product function, ${b} may refund partially or resend the missing part; for parts missing which affect product function, ${b} will resend the product only.<br>
-    d. For accessories, ${b} will resend the accessories.</p>
-    <p ${pStyle}><strong style="font-weight: bold;">Notes:</strong><br>
-    For size problems, ${b} will appreciate it a lot if you can measure the product according to the correct measurement method and provide us with the photo of measurement. Then, our dispute team will deal with your disputes quickly.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h3 ${h3Style}><font color="#000000"><b>4. WRONG RECEIPT INFORMATION</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>If the buyer puts wrong receipt information on an order, the buyer should contact the us via <a href="${contactHref}" style="color: #2563eb; text-decoration: none;">Contact Us</a> to request us to update the order with the correct receipt information.</p>
-    <p ${pStyle}>Please note the receipt information correction or order cancellation are not guaranteed.<br>
-    If the order has already shipped out, it is the buyer's responsibility to contact the logistics company with the correct information.<br>
-    If the goods have been delivered to the wrong receipt, the buyer can attempt to send back the products at his/her own expense. If the goods are returned in good condition, ${b} shall refund the order within 3 business days of receiving the goods, as buyer&rsquo;s refund request, or begin redelivery within 5 business days of receiving the goods. Please note the buyer will additionally be in charge of the redelivery fee.</p>
-    <p ${pStyle}>If the order cannot be corrected or returned, the buyer will bear the losses.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h3 ${h3Style}><font color="#000000"><b>5. DEFECTIVE PRODUCTS (PACKAGE BREAKAGE/SIGNIFICANTLY NOT AS DESCRIBED/MISSING OR WRONG GOODS/QUALITY PROBLEMS)</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>If the buyer detects any problem upon receipt (damaged package/significantly not as described/missing or wrong goods or other quality problems), buyer should provide a refund or redelivery request with valid proof (photos/videos of goods received that shows the problem clearly). After the buyer files a request on ${b}, ${b} should check the proof and give a response within 3 business days.</p>
-    <p ${pStyle}>If the proof checked by ${b} is not showing the problem clearly and or if the proof checked by ${b} is not showing the problem clearly, the proof is invalid, and the ${b} has the right to reject the buyer's refund request.</p>
-    <p ${pStyle}>If the buyer's proof shows a problem clearly after being checked by the ${b}, the proof checking time shall not more than 3 business days, and if the goods need to be returned to get a refund, ${b} should provide the buyer with a prepaid return label within 3 business days of proof approval, and refund the order when the return shows in transit on the logistics website searched by tracking number buyer uploaded within 3 business days. If the goods needn't be returned, ${b} should refund the order within 3 business days of the refund request.</p>
-    <p ${pStyle}>If proof is valid, and buyer requests redelivery, ${b} should redelivery within 5 business days of proof approval. Please note ${b} has the right to refund orders if the redelivery products have no stocks, or buyers are able to reorder products when the products are restocked.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>5.1 INCORRECT OR MISSING PRODUCTS</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>${b} has a strict quality control process before products are dispatched. <br>
-    ${b} will deal with incorrect or missing products as follows:</p>
-    <p ${pStyle}>a. For incorrect products, ${b} offers a full refund or replacement.<br>
-    b. For products with wrong color, size which doesn't affect product function, etc., ${b} offers a refund or resend if you provide a screenshot of your clients' complaint including name, content and date.<br>
-    c. For parts missing which don't affect product function, ${b} may refund partially or resend the missing part; for parts missing which affect product function, ${b} will resend the product only.<br>
-    d. For accessories, ${b} will resend the accessories.</p>
-    <p ${pStyle}><strong style="font-weight: bold;">Notes:</strong><br>
-    For size problems, ${b} will appreciate it a lot if you can measure the product according to the correct measurement method and provide us with the photo of measurement. Then, our dispute team will deal with your disputes quickly.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>5.2 SERVICE PRODUCTS</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>Service products apply to the following interpretation.</p>
-    <p ${pStyle}>a. Any disputes arising from products damaged or shipping delayed, ${b} may not refund the product cost.<br>
-    b. Any disputes arising from bad quality, ${b} may not accept as the supplier is not ${b}.<br>
-    c. For service products without ${b} quality checking inspection, ${b} may not accept the disputes.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h3 ${h3Style}><font color="#000000"><b>6. LOGISTICS ISSUES</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>6.1 INVALID TRACKING INFORMATION</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>If ${b} verifies the tracking number is wrong, and ${b} fails to provide the correct one within 4 business days, ${b} will refund the order.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>6.2 UNTIMELY TRACKING INFO UPDATES</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>If there is no update of the tracking info for more than 7 business days after the label is created showing on a logistic website, and the buyer applies for a refund, ${b} requires a refund order within 3 business days since buyer request.<br>
-    Note: this clause is not applicable for special time/periods such as holidays, covid-19, abnormal weather, or other abnormal situations.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>6.3 TOO-LONG OF SHIPPING PERIOD</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>If the transit time exceeds the estimated delivery time by 10 days or more and ${b} fails to provide any valid tracking updated info, the buyer may apply for a refund. ${b} requires a refund order within 3 business days as buyer requests.<br>
-    Note: this clause is not applicable for special time/periods such as holidays, covid-19, abnormal weather, or other abnormal situations.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>6.4. SHIPPING METHOD LIMITS</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>Some shipping methods are not trackable when orders arrive at some Countries, States, or Cities. ${b} lists those shipping methods in advance and will not accept any disputes when you choose those shipping methods to some countries, including:<br>
-    PostNL, Electric PostNL, Packet Eub, Packet Postal Route, Packet Postal, Packet Railway Economy.</p>
-
-    <p ${pStyle}><strong style="font-weight: bold;">Notes:</strong><br>
-    When choosing certain shipping methods, the remote addresses will be charged additional cost.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>6.5 FORCE MAJEURE</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>${b} takes no responsibility for any product damage or shipping delay caused by the act of god, including but not limited to: epidemic situation, international situation, strike, war, earthquake, flood, virus, storm, heavy snow, customs inspection. However, ${b} will notify you by ${email}.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>6.6 DESTINATION LIMITS</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>Due to limited international transportation, ${b} will not accept any disputes when your orders are shipped to the following countries:<br>
-    Brunei, Cambodia, Laos, Vietnam, Andorra, Guernsey, Gibraltar, Greenland, Canary Islands, Iceland, Jersey, Liechtenstein, Monaco, San Marino, Vatican, Bahrain, Kuwait, Afghanistan, Antigua, Anguilla, Albania, Armenia, Angola, Argentina, American Samoa, Aruba, Azerbaijan, Bosnia and Herzegovina, Barbados Bangladesh, Burkina Faso, Burundi, Benin, Bermuda, Bolivia, Bahamas, Bhutan, Botswana, Belarus, Belize, Democratic Republic of the Congo, Central African Republic, Congo, Cote d'Ivoire, Cook Islands, Cameroon, Costa Rica, Cuba, Cape Verde, Djibouti, Dominica, Dominican Republic, Algeria, Ecuador, Eritrea, Ethiopia Fiji Islands, Falkland Islands, Micronesia, Faroe Islands, Gabon, Grenada, Georgia, French Guiana, Ghana, Gambia, Guinea, Guadeloupe, Equatorial Guinea, Guatemala, Guam, Guinea Bissau, Guyana, Honduras, Haiti, Iraq, Iran, Jamaica, Jordan, Kenya, Kyrgyzstan, Kiribati, Comoros, Saint Kitts, North Korea Kosovo, Cayman Islands, Kazakhstan, Lebanon, Saint Lucia, Sri Lanka, Liberia, Lesotho, Libya, Morocco, Moldova, Montenegro, Madagascar, Marshall Islands, Republic of North Macedonia, Mali, Myanmar, Mongolia, Saipan, Martinique, Mauritania, Montserrat, Mauritius, Maldives, Malawi, Mozambique, Namibia New Caledonia, Niger, Nigeria, Nicaragua, Nepal, Nauru, Niue, Oman, Panama, Peru, Tahiti, Papua New Guinea, Pakistan, Palau, Paraguay, Qatar, R&eacute;union, Romania, Serbia, Rwanda, Solomon Islands, Seychelles, Sudan, St. Helena, Sierra Leone, Senegal, Somalia, Suriname, Republic of South Sudan Sao Tome and Principe, El Salvador, Syria, Eswatini, Turks and Caicos Islands, Chad, Togo, Tajikistan, Timor Leste, Turkmenistan, Tunisia, Tonga, Trinidad and Tobago, Tuvalu, Tanzania, Ukraine, Uganda, Uruguay, Uzbekistan, Saint Vincent Island, Venezuela, British Virgin Islands, United States Virgin Islands, Vanuatu Samoa, Bernel, Curacao, Saint Eustacius, Saint Martin, Nevis, Somaliland, Saint Bafulimi, Yemen, Mayotte Island, Zambia, and Zimbabwe.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h3 ${h3Style}><font color="#000000"><b>7. OTHER</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>When encountering holidays, COVID-19, abnormal weather, or other abnormal situations, the buyer shall contact us through ${email}.</p>
-    <p ${pStyle}>${b} will try its best to assist buyers in these special circumstances in a timely manner. After notifying ${b}, Buyers should expect a decision from ${b} on these types of issues no later than two weeks.</p>
-    <p ${pStyle}>${b} takes no responsibility for any product damage or shipping delay caused by the act of god, including but not limited to: epidemic situation, international situation, strike, war, earthquake, flood, virus, storm, heavy snow, customs inspection. However, ${b} will notify you by ${email}.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>7.1 RETURN</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>Products can be returned to ${b} US warehouses only. But we do not suggest returning products to our warehouses, because the international shipping cost is high and it takes at least 3 months to arrive at ${b} US Warehouse. Most of them will be lost during the return. Also, most of the returned products will be damaged on the way.</p>
-    <p ${pStyle}>a. If you indeed want to return the products, please email ${b} and someone will respond to you within 1 to 5 business days. <br>
-    b. Please return products within 10 days after receiving products and after speaking with someone at ${b}. </p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>7.2 ORDERS CANCELLATION</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>For orders cancellation, ${b} offers a full refund before products are processed by warehouses.</p>
-    <p ${pStyle}>a. After payment, POD orders cannot be canceled as it is customized.<br>
-    b. After payment, pre order inventory orders cannot be canceled as they are special products and only available for you.<br>
-    c. After payment, video and photo orders cannot be canceled as ${b} has planned and prepared for you after payment.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>7.3 DEADLINE OF OPENING DISPUTE</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>You cannot open a dispute if the order status is closed. Your dispute cannot be resolved when tracking information from a third party is untraceable.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h4 ${h4Style}><font color="#000000"><b>7.4 UNACCEPTABLE DISPUTES</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>${b} shall not accept any unreasonable disputes, including but not limited to:<br>
-    a. The buyer does not like it.<br>
-    b. The product description is not real.<br>
-    c. Products smell unusual.<br>
-    d. The buyer ordered the wrong items or SKU.<br>
-    e. The shipping address was provided incorrectly.<br>
-    f. Product difference was negotiated in advance.<br>
-    g. Tracking information deleted by logistics companies or local post offices.<br>
-    h. In some cases, packages returned/discarded/detained due to the consignee&rsquo;s failure to comply with the work of customs clearance in line with the foreign trade policies of certain countries.</p>
-
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <h3 ${h3Style}><font color="#000000"><b>8. ATTENTION</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p ${pStyle}>If buyers are unsatisfied with the solution of the order after-sale issues, buyers have the responsibility to open a dispute with ${b} to help deal with the after-sale issues.</p>
-</div>`;
-                }
-
-                // Strip the empty spacer paragraphs used between sections
-                // (<p>&nbsp;</p>) — with a <br> after every real paragraph,
-                // these extra spacers made section gaps too wide.
-                htmlContent = htmlContent.split('<p style="margin:0; line-height:1;">&nbsp;</p>').join('');
-
-                // Add a single-line gap after every closing </p>. Some
-                // platforms (Warhead included) strip a bare, "empty" <br>
-                // on paste — wrapping a non-breaking space between two <br>
-                // tags gives the line actual content, so it survives the
-                // paste/sanitize step and still renders as one line gap.
-                htmlContent = htmlContent.replace(/<\/p>/g, '</p><br>&nbsp;<br>');
-
-                // Also add the same line-gap after every bold section
-                // heading (e.g. "5. DEFECTIVE PRODUCTS...") so there's a
-                // visible break between the title and the paragraph below it.
-                htmlContent = htmlContent.replace(/<\/h3>/g, '</h3><br>&nbsp;<br>');
-                htmlContent = htmlContent.replace(/<\/h4>/g, '</h4><br>&nbsp;<br>');
-
-                // Same treatment for the top-level titles (e.g. "GENERAL
-                // TERMS & POLICY", "Shipping Policy", "Returns & Refunds
-                // Policy") so they get breathing room below them too.
-                htmlContent = htmlContent.replace(/<\/h2>/g, '</h2><br>&nbsp;<br>');
-
-                // Leading spacer at the very top of the content — Warhead
-                // shows its own built-in "Shipping & Returns" header above
-                // whatever gets pasted in, so this adds a fixed 2-inch gap
-                // between that built-in header and our "GENERAL TERMS &
-                // POLICY" title, instead of a line-break-sized gap.
-                htmlContent = htmlContent.replace(/^(<div[^>]*>)/, '$1<div style="height:2in;"></div>');
-
-                // ---- Render output ----
-                if (type === 'short') {
-                    // show the RAW HTML code as text so it can be copied into a code editor
-                    outputBox.textContent = htmlContent;
-                    outputBox.style.fontFamily = "monospace";
-                    outputBox.style.whiteSpace = "pre-wrap";
-                    outputBox.style.textAlign = "left";
-                    document.getElementById('instructionBox').style.display = 'block';
-                } else {
-                    // render the visual preview
-                    outputBox.innerHTML = htmlContent;
-                    outputBox.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
-                    outputBox.style.whiteSpace = "normal";
-                    document.getElementById('instructionBox').style.display = 'none';
-                }
-
-                updateStats('shippingOutput', 'shippingStats');
-
-            } catch (e) {
-                alert("Error generating policy: " + e.message);
-                console.error(e);
+    }
+
+    function buildHref(value) {
+        var v = (value || '').trim();
+        if (!v) return '#';
+        if (/^mailto:/i.test(v)) return v;
+        if (/^https?:\/\//i.test(v)) return v;
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return 'mailto:' + v;
+        return 'https://' + v.replace(/^\/+/,'');
+    }
+
+    function copyText(btn, containerId) {
+        var container = document.getElementById(containerId);
+        if (!container.innerText.trim()) return;
+        var range = document.createRange();
+        range.selectNodeContents(container);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        try {
+            document.execCommand('copy');
+            var orig = btn.innerText;
+            btn.innerText = 'Copied!';
+            btn.style.background = 'var(--primary)';
+            btn.style.color = '#fff';
+            setTimeout(function() { btn.innerText = orig; btn.style.background = ''; btn.style.color = ''; }, 2000);
+        } catch(err) { console.error(err); }
+        sel.removeAllRanges();
+    }
+
+    function updateStats(containerId, statsId) {
+        var text = document.getElementById(containerId).innerText;
+        var words = text.trim().split(/\s+/).filter(function(w) { return w.length > 0; }).length;
+        var readTime = Math.ceil(words / 200) || 1;
+        var html = words === 0
+            ? '📊 <b>0</b> words &nbsp;|&nbsp; ⏱️ <b>~0</b> min read'
+            : '📊 <b>' + words + '</b> words &nbsp;|&nbsp; ⏱️ <b>~' + readTime + '</b> min read';
+        document.getElementById(statsId).innerHTML = html;
+    }
+
+    function visualReset(btn) {
+        btn.style.transform = 'scale(0.9)';
+        btn.style.backgroundColor = 'var(--doc-red)';
+        btn.style.color = 'white';
+        setTimeout(function() { btn.style.transform = ''; btn.style.backgroundColor = ''; btn.style.color = ''; }, 200);
+    }
+
+    function resetShipping(e) {
+        visualReset(e.currentTarget);
+        ['shippingBizName','shippingUrlInput','shippingContactInput','shippingEmailInput'].forEach(function(id) {
+            document.getElementById(id).value = '';
+        });
+        document.getElementById('shippingPolicyType').value = 'long';
+        document.getElementById('shippingOutput').innerHTML = '';
+        document.getElementById('instructionBox').style.display = 'none';
+        updateStats('shippingOutput', 'shippingStats');
+    }
+
+    function generateShipping() {
+        try {
+            var b = document.getElementById('shippingBizName').value || '[BUSINESS NAME]';
+            var bPos = /s$/i.test(b) ? b + "'" : b + "'s";
+            var email = document.getElementById('shippingEmailInput').value || '[BUSINESS EMAIL ADDRESS]';
+            var type = document.getElementById('shippingPolicyType').value;
+            var outputBox = document.getElementById('shippingOutput');
+
+            var contactRaw = document.getElementById('shippingContactInput').value.trim();
+            var contactText = contactRaw || '[CONTACT US PAGE LINK]';
+            var contactHref = contactRaw ? buildHref(contactRaw) : '#';
+
+            var urlInput = document.getElementById('shippingUrlInput').value.trim();
+            var urlLinkOpt1 = '[WEBSITE URL LINK]';
+            if (urlInput !== '') {
+                urlInput = urlInput.replace(/^https?:\/\//i,'').replace(/\/$/,'');
+                if (!urlInput.startsWith('www.')) urlInput = 'www.' + urlInput;
+                urlLinkOpt1 = '<a href="https://' + urlInput + '" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;font-weight:bold;">' + urlInput + '</a>';
             }
+
+            /* ---- Option 1 inline styles (driven by FONT object) ---- */
+            var pStyle      = 'style="text-align:left;margin:0 0 20px 0;line-height:1.75;font-size:' + FONT.body + 'px;color:#1f2937;"';
+            var h2TopStyle  = 'style="text-align:left !important;display:block;margin:0 0 28px 0;border-bottom:3px solid #e5e7eb;padding-bottom:12px;font-size:' + FONT.title + 'px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#000;"';
+            var h3Style     = 'style="text-align:left;margin:40px 0 14px 0;font-size:' + FONT.section + 'px;font-weight:800;text-transform:uppercase;letter-spacing:0.3px;color:#000;"';
+            var h4Style     = 'style="text-align:left;margin:28px 0 12px 0;font-size:' + FONT.sub + 'px;font-weight:700;color:#000;"';
+
+            /* ---- Option 2 inline styles ---- */
+            var pCode      = 'style="text-align:left;margin:0 0 16px 0;line-height:1.6;"';
+            var h2TopCode  = 'style="text-align:left;margin:0 0 24px 0;border-bottom:2px solid #ddd;padding-bottom:10px;font-size:1.6em;font-weight:900;text-transform:uppercase;"';
+            var h2Code     = 'style="text-align:left;margin:40px 0 20px 0;border-bottom:1px solid #ddd;padding-bottom:10px;font-size:1.35em;font-weight:900;text-transform:uppercase;"';
+            var h3Code     = 'style="text-align:left;margin:24px 0 12px 0;font-size:1.1em;font-weight:900;text-transform:uppercase;"';
+            var ulCode     = 'style="text-align:left;margin:0 0 16px 0;padding-left:24px;line-height:1.6;"';
+            var liCode     = 'style="text-align:left;margin-bottom:8px;"';
+
+            /* ---- Section 1 table (Option 1) ---- */
+            var thStyle = 'style="border:2px solid #e5e7eb;padding:12px 14px;text-align:left;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.4px;background:#eff4ff;color:#000;"';
+            var tdBold  = 'style="border:1px solid #e5e7eb;padding:14px;vertical-align:top;font-weight:700;background:#fafbff;color:#000;"';
+            var tdNorm  = 'style="border:1px solid #e5e7eb;padding:14px;vertical-align:top;background:#fff;color:#1f2937;font-size:' + FONT.body + 'px;line-height:1.65;"';
+
+            var htmlContent = '';
+
+            /* ================================================================
+               OPTION 2 — SHORT / RAW HTML CODE
+            ================================================================ */
+            if (type === 'short') {
+                htmlContent =
+'<div style="text-align:left;font-family:inherit;width:100%;">\n' +
+
+'<h2 ' + h2TopCode + '>General Terms &amp; Policy</h2>\n\n' +
+
+'<p ' + pCode + '>' + b + ' may amend these terms at any time. Updates take immediate effect upon publication on our website. Continued use of ' + bPos + ' services constitutes acceptance of these terms. In the event of any discrepancy, ' + bPos + ' policy shall prevail.</p>\n\n' +
+
+'<p ' + pCode + '>Buyers must submit return and refund requests within <strong style="font-weight:bold;">25 days</strong> from the delivery date. Requests filed after this period may be declined.</p>\n\n' +
+
+'<p ' + pCode + '>If an order cannot be fulfilled within the stated processing time, ' + b + ' will promptly cancel the order and issue a full refund.</p>\n\n' +
+
+'<p ' + pCode + '>Should damaged or broken goods be received and a refund substantiated with compelling evidence, ' + b + ' will provide a prepaid return label within <strong style="font-weight:bold;">3 business days</strong>. A refund will be issued once the return is marked as in transit.</p>\n\n' +
+
+'<p ' + pCode + '>For &ldquo;non-defective remorse returns,&rdquo; ' + b + ' reserves the right to accept or decline the request. If accepted, a restocking &amp; repacking fee of up to <strong style="font-weight:bold;">35%</strong> of the order total may apply.</p>\n\n' +
+
+'<p ' + pCode + '>Refunds will be issued within <strong style="font-weight:bold;">3 business days</strong> of approval. Redelivery will be initiated within <strong style="font-weight:bold;">5 business days</strong> of the request.</p>\n\n' +
+
+'<p ' + pCode + '>Buyers must return goods within <strong style="font-weight:bold;">15 calendar days</strong> of receiving a return label. Failure to meet this deadline may result in the refund being withheld.</p>\n\n' +
+
+'<h2 ' + h2Code + '>1. Refund Request Timing</h2>\n\n' +
+
+'<h3 ' + h3Code + '>Unshipped Orders</h3>\n' +
+'<ul ' + ulCode + '>\n' +
+'  <li ' + liCode + '>Request made <strong style="font-weight:bold;">after</strong> the stated processing time: ' + b + ' will refund the order in full.</li>\n' +
+'  <li ' + liCode + '>Request made <strong style="font-weight:bold;">within</strong> the stated processing time: ' + b + ' must act on the request — accept or reject — within <strong style="font-weight:bold;">3 business days</strong>. Failure to act within this window results in an automatic refund.</li>\n' +
+'</ul>\n\n' +
+
+'<h3 ' + h3Code + '>Shipped Orders</h3>\n' +
+'<p ' + pCode + '>Upon receipt of a refund request for a shipped order, ' + b + ' must accept or reject within <strong style="font-weight:bold;">3 business days</strong>. Failure to respond within this window results in an automatic refund.</p>\n\n' +
+
+'<h2 ' + h2Code + '>2. Goods Returned in Transit</h2>\n\n' +
+'<p ' + pCode + '>If a package is returned during transit due to a carrier error, ' + b + ' will process a refund within <strong style="font-weight:bold;">3 business days</strong> upon the buyer&rsquo;s refund request, or initiate redelivery within <strong style="font-weight:bold;">5 business days</strong>.</p>\n' +
+'<p ' + pCode + '><strong style="font-weight:bold;">Exceptions:</strong> ' + b + ' is not obligated to refund or redeliver if the package was returned due to an incorrect or incomplete address provided by the buyer, or due to the recipient refusing delivery without prior cancellation approval.</p>\n\n' +
+
+'<h2 ' + h2Code + '>3. Goods Destroyed in Transit</h2>\n\n' +
+'<p ' + pCode + '>If goods are confirmed destroyed in transit and the buyer provides proof (such as a screenshot from the logistics website), ' + b + ' will process a refund within <strong style="font-weight:bold;">3 business days</strong>, or initiate redelivery within <strong style="font-weight:bold;">5 business days</strong>.</p>\n\n' +
+
+'<h2 ' + h2Code + '>4. Wrong Receipt Information</h2>\n\n' +
+'<p ' + pCode + '>If incorrect recipient information is entered, the buyer must contact ' + b + ' immediately via <a href="' + contactHref + '" style="color:#2563eb;text-decoration:none;">Contact Us</a>. Corrections are not guaranteed. If the order has already shipped, the buyer must contact the carrier directly. If goods are delivered to a wrong address due to buyer error, the buyer bears return shipping costs. If the order is non-correctable, the buyer absorbs any associated losses.</p>\n\n' +
+
+'<h2 ' + h2Code + '>5. Defective Products</h2>\n\n' +
+'<p ' + pCode + '>Applies to: package breakage, items significantly not as described, missing or wrong goods, and quality problems.</p>\n' +
+'<p ' + pCode + '>The buyer must submit a refund or redelivery request with valid proof (photos or videos clearly showing the issue). ' + b + ' will review and respond within <strong style="font-weight:bold;">3 business days</strong>.</p>\n' +
+'<ul ' + ulCode + '>\n' +
+'  <li ' + liCode + '><strong style="font-weight:bold;">If a return is needed:</strong> ' + b + ' provides a prepaid label within 3 business days of proof approval. Refund issued within 3 business days of the tracking showing in transit.</li>\n' +
+'  <li ' + liCode + '><strong style="font-weight:bold;">If no return is needed:</strong> Refund processed within 3 business days.</li>\n' +
+'  <li ' + liCode + '><strong style="font-weight:bold;">Redelivery:</strong> Initiated within 5 business days of proof approval. If out of stock, ' + b + ' may issue a refund instead.</li>\n' +
+'</ul>\n\n' +
+
+'<h2 ' + h2Code + '>6. Logistics Issues</h2>\n\n' +
+
+'<h3 ' + h3Code + '>6.1 Invalid Tracking Information</h3>\n' +
+'<p ' + pCode + '>If the tracking number is confirmed invalid and a correct one is not provided within <strong style="font-weight:bold;">3 business days</strong>, ' + b + ' will issue a full refund.</p>\n\n' +
+
+'<h3 ' + h3Code + '>6.2 Untimely Tracking Updates</h3>\n' +
+'<p ' + pCode + '>If there are no tracking updates for more than <strong style="font-weight:bold;">7 business days</strong> and the buyer requests a refund, ' + b + ' must process it within 3 business days. This clause does not apply during public holidays, pandemics, extreme weather, or other exceptional circumstances.</p>\n\n' +
+
+'<h3 ' + h3Code + '>6.3 Extended Shipping Delays</h3>\n' +
+'<p ' + pCode + '>If transit time exceeds the estimated delivery time by <strong style="font-weight:bold;">10 or more days</strong> and no valid updated tracking is provided, the buyer may request a refund. ' + b + ' must process the refund within 3 business days. This clause does not apply during exceptional circumstances.</p>\n\n' +
+
+'<h3 ' + h3Code + '>6.4 Logistics Execution Rules</h3>\n' +
+'<p ' + pCode + '>If multiple shipping methods are offered, ' + b + ' must dispatch using the buyer&rsquo;s selected method. Non-compliance entitles the buyer to a refund. If the listing states &ldquo;Seller-Selected Shipping,&rdquo; ' + b + ' retains discretion to choose the shipping method.</p>\n\n' +
+
+'<h3 ' + h3Code + '>6.5 Combined Shipments</h3>\n' +
+'<p ' + pCode + '>Each order must be shipped separately unless the buyer has given explicit consent to combine shipments.</p>\n\n' +
+
+'<h2 ' + h2Code + '>7. Miscellaneous</h2>\n\n' +
+'<p ' + pCode + '>During public holidays, pandemics, extreme weather, or other exceptional situations, buyers should contact ' + b + ' at <a href="mailto:' + email + '" style="color:#2563eb;text-decoration:none;">' + email + '</a> or via <a href="' + contactHref + '" style="color:#2563eb;text-decoration:none;">Contact Us</a>.</p>\n' +
+'<p ' + pCode + '>' + b + ' will make every effort to assist within a maximum of <strong style="font-weight:bold;">two weeks</strong> of notification.</p>\n' +
+'<p ' + pCode + '>If buyers are dissatisfied with the resolution of any after-sale issue, they are required to initiate a formal dispute with ' + b + ' so that the matter may be properly reviewed and handled.</p>\n\n' +
+'</div>';
+
+            /* ================================================================
+               OPTION 1 — LONG / VISUAL PREVIEW
+            ================================================================ */
+            } else {
+                htmlContent =
+'<div style="text-align:left !important;font-family:inherit;width:100% !important;">\n\n' +
+
+'<div style="text-align:left !important;display:block;margin:0 0 28px 0;border-bottom:3px solid #e5e7eb;padding-bottom:12px;font-size:' + FONT.title + 'px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:#000;"><font color="#000000"><b>GENERAL TERMS &amp; POLICY</b></font></div>\n\n' +
+
+'<p ' + pStyle + '>' + b + ' may amend these rules as needed, with any updates taking immediate effect upon publication on ' + urlLinkOpt1 + '. Non-acceptance of these terms constitutes an immediate forfeiture of the right to use ' + bPos + ' services. Utilization of ' + bPos + ' services implies acceptance of these rules by all buyers. In the event of a discrepancy, ' + bPos + ' Policy shall prevail.</p>\n\n' +
+
+'<p ' + pStyle + '>Buyers must submit return and refund requests within <strong style="font-weight:bold;">30 days</strong> from the delivery date for after-sales issues. Should a request be filed after this period, ' + b + ' reserves the right to deny any after-sales service.</p>\n\n' +
+
+'<p ' + pStyle + '>Prior to requesting an order cancellation, buyers must verify that ' + bPos + ' Return &amp; Refund Policy permits cancellation at the current stage. If allowable, buyers are required to apply for cancellation, subject to ' + bPos + ' consent. Please be aware that while ' + b + ' will attempt to cancel the order with the warehouse, the ability to do so is not guaranteed.</p>\n\n' +
+
+'<p ' + pStyle + '>Should ' + b + ' fail to fulfill a buyer&rsquo;s order within the Order Processing Time specified on ' + b + '&rsquo;s product page, due to reasons including but not limited to stock shortage or other unforeseen circumstances, ' + b + ' is obligated to promptly cancel the order and issue a refund.</p>\n\n' +
+
+'<p ' + pStyle + '>In the event that the buyer receives damaged or broken goods and substantiates a refund request with compelling evidence, ' + b + ' is obligated to provide a prepaid return label within <strong style="font-weight:bold;">3 business days</strong> for the return of the damaged or broken items. ' + b + ' should process the refund once the returned goods are marked as &ldquo;in transit&rdquo; on the logistics website, using the ' + b + '-provided prepaid return label.</p>\n\n' +
+
+'<p ' + pStyle + '>For &ldquo;non-defective remorse returns,&rdquo; ' + b + ' reserves the right to accept or reject such requests in line with its stated policy. ' + b + ' will abide by its published policy in these instances.</p>\n\n' +
+
+'<p ' + pStyle + '>Should ' + b + ' agree to an after-sale request for &ldquo;non-defective remorse returns&rdquo; and opt to impose a &ldquo;restocking &amp; repacking fee,&rdquo; the total fee charged shall not exceed <strong style="font-weight:bold;">35%</strong> of the order&rsquo;s total price.</p>\n\n' +
+
+'<p ' + pStyle + '>Under conditions that necessitate a refund based on ' + bPos + ' policy, ' + b + ' enforces specific time constraints. Refunds must be issued within no more than <strong style="font-weight:bold;">3 business days</strong>, and redelivery must be initiated within no more than <strong style="font-weight:bold;">5 business days</strong>.</p>\n\n' +
+
+'<p ' + pStyle + '>Buyers must ensure that goods are returned within <strong style="font-weight:bold;">15 calendar days</strong> of receiving a return label. Should this deadline not be met, ' + b + ' may exercise the right to withhold the refund.</p>\n\n' +
+
+'<p ' + pStyle + '>Upon submitting an after-sales request, the buyer is required to furnish evidence to ' + b + '. If the buyer fails to provide adequate evidence within the timeframe specified by ' + bPos + ' Return &amp; Refund Policy, ' + b + ' reserves the right to decline the return and/or refund request. The determination of whether the evidence is compelling will be made at ' + bPos + ' discretion.</p>\n\n' +
+
+'<h3 ' + h3Style + '><font color="#000000"><b>1. REFUND REQUEST TIMING</b></font></h3>\n\n' +
+
+'<p ' + pStyle + '>Buyers are entitled to request a full refund for orders not dispatched within the timeframe indicated on the order page, as per the estimated processing time.</p>\n\n' +
+
+'<div style="overflow-x:auto;margin:0 0 28px 0;">' +
+'<table style="width:100%;border-collapse:collapse;font-size:' + FONT.body + 'px;">' +
+'<thead><tr>' +
+'<th ' + thStyle + ' style="border:2px solid #e5e7eb;padding:12px 14px;text-align:left;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.4px;background:#eff4ff;color:#000;width:22%;">Return &amp; Refund Type</th>' +
+'<th ' + thStyle + ' style="border:2px solid #e5e7eb;padding:12px 14px;text-align:left;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.4px;background:#eff4ff;color:#000;width:30%;">Situation</th>' +
+'<th ' + thStyle + ' style="border:2px solid #e5e7eb;padding:12px 14px;text-align:left;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:0.4px;background:#eff4ff;color:#000;">' + b + ' Rules</th>' +
+'</tr></thead>' +
+'<tbody>' +
+'<tr>' +
+'<td rowspan="2" ' + tdBold + ' style="border:1px solid #e5e7eb;padding:14px;vertical-align:top;font-weight:700;background:#fafbff;color:#000;">For Unshipped Orders</td>' +
+'<td ' + tdNorm + ' style="border:1px solid #e5e7eb;padding:14px;vertical-align:top;background:#fff;color:#1f2937;line-height:1.65;">Request made <strong style="font-weight:bold;">after</strong> the stated processing time.</td>' +
+'<td ' + tdNorm + ' style="border:1px solid #e5e7eb;padding:14px;vertical-align:top;background:#fff;color:#1f2937;line-height:1.65;">' + b + ' will refund the order.</td>' +
+'</tr>' +
+'<tr>' +
+'<td ' + tdNorm + ' style="border:1px solid #e5e7eb;padding:14px;vertical-align:top;background:#fff;color:#1f2937;line-height:1.65;">Request made <strong style="font-weight:bold;">within</strong> the stated processing time.</td>' +
+'<td ' + tdNorm + ' style="border:1px solid #e5e7eb;padding:14px;vertical-align:top;background:#fff;color:#1f2937;line-height:1.65;">Upon receipt of a refund request, ' + b + ' must act &mdash; accept or reject &mdash; within <strong style="font-weight:bold;">3 business days</strong>. Should ' + b + ' not address the request within this period, the refund will be issued automatically.<br><br><em style="font-style:italic;">Note: Even if the order is within the stated processing time, refund requests must still be processed within this 3-business-day window.</em></td>' +
+'</tr>' +
+'<tr>' +
+'<td ' + tdBold + ' style="border:1px solid #e5e7eb;padding:14px;vertical-align:top;font-weight:700;background:#fafbff;color:#000;">For Shipped Orders</td>' +
+'<td ' + tdNorm + ' style="border:1px solid #e5e7eb;padding:14px;vertical-align:top;background:#fff;color:#1f2937;line-height:1.65;">Request made after the order has been shipped.</td>' +
+'<td ' + tdNorm + ' style="border:1px solid #e5e7eb;padding:14px;vertical-align:top;background:#fff;color:#1f2937;line-height:1.65;">Upon receipt of a refund request, ' + b + ' must act within <strong style="font-weight:bold;">3 business days</strong>. Should ' + b + ' not address the request within this period, the refund will be issued automatically.<br><br><em style="font-style:italic;">Note: Even if the order is within the processing timeframe, refund requests must still be processed within this 3-business-day window.</em></td>' +
+'</tr>' +
+'</tbody></table></div>\n\n' +
+
+'<h3 ' + h3Style + '><font color="#000000"><b>2. GOODS RETURNED IN TRANSIT</b></font></h3>\n\n' +
+
+'<p ' + pStyle + '><strong style="font-weight:bold;">For orders fulfilled by ' + b + ':</strong> If a package is returned to ' + b + ' during transit due to a logistics carrier error and the buyer requests a refund, ' + b + ' is required to process the refund within <strong style="font-weight:bold;">3 business days</strong> of the refund request. Conversely, if the buyer chooses redelivery, ' + b + ' must begin reshipment within <strong style="font-weight:bold;">5 business days</strong> of receiving the redelivery request.</p>\n\n' +
+
+'<p ' + pStyle + '>Exceptions to this policy, which may preclude ' + bPos + ' obligation to refund or redeliver, include but are not limited to:</p>\n\n' +
+
+'<p ' + pStyle + '>&bull; &nbsp;The provision of an incorrect or incomplete address by the buyer.<br>' +
+'&bull; &nbsp;The refusal of the buyer&rsquo;s recipient to accept the goods. This does not apply in instances where the buyer has cancelled the order upon the recipient&rsquo;s request and ' + b + ' has consented to the refusal of delivery.</p>\n\n' +
+
+'<p ' + pStyle + '><strong style="font-weight:bold;">For pick-up orders:</strong> ' + b + ' bears no responsibility for issues related to logistics.</p>\n\n' +
+
+'<h3 ' + h3Style + '><font color="#000000"><b>3. GOODS DESTROYED IN TRANSIT</b></font></h3>\n\n' +
+
+'<p ' + pStyle + '><strong style="font-weight:bold;">For orders fulfilled by ' + b + ':</strong> If the package or goods are damaged during transit and the buyer provides proof &mdash; such as a screenshot from the logistics website confirming the destruction &mdash; ' + b + ' is obligated to process a refund within <strong style="font-weight:bold;">3 business days</strong> of the refund request. Alternatively, if the buyer requests redelivery, ' + b + ' should initiate the process within <strong style="font-weight:bold;">5 business days</strong> of the request.</p>\n\n' +
+
+'<p ' + pStyle + '><strong style="font-weight:bold;">For pick-up orders:</strong> ' + b + ' holds no responsibility for any issues related to logistics.</p>\n\n' +
+
+'<h3 ' + h3Style + '><font color="#000000"><b>4. WRONG RECEIPT INFORMATION</b></font></h3>\n\n' +
+
+'<p ' + pStyle + '>If the buyer enters incorrect recipient information for an order, they should promptly reach out to ' + b + ' via <a href="' + contactHref + '" style="color:#2563eb;text-decoration:none;">Contact Us</a> to request an update of the order with the correct recipient information.</p>\n\n' +
+
+'<p ' + pStyle + '>Please be aware that requests for correcting recipient information or cancelling an order are not guaranteed to be fulfilled.</p>\n\n' +
+
+'<p ' + pStyle + '>Should the order have already been dispatched, it is the buyer&rsquo;s responsibility to contact the logistics company directly to provide accurate information.</p>\n\n' +
+
+'<p ' + pStyle + '>If goods are shipped to an incorrect address because the buyer provided wrong information, ' + b + ' has the discretion to determine whether to accept the return of the products and issue a refund. Buyers should confirm with ' + b + ' whether they are willing to accept the return. In cases where ' + b + ' consents to the return, the buyer will be accountable for the return shipping expenses.</p>\n\n' +
+
+'<p ' + pStyle + '>Should the order be uncorrectable or non-returnable, the buyer must absorb any associated losses.</p>\n\n' +
+
+'<h3 ' + h3Style + '><font color="#000000"><b>5. DEFECTIVE PRODUCTS</b></font></h3>\n\n' +
+
+'<p ' + pStyle + '>Including package breakage, significantly not as described, missing or wrong goods, and quality problems.</p>\n\n' +
+
+'<p ' + pStyle + '>Upon receipt, if the buyer encounters any of the above issues, the buyer should submit a refund or redelivery request along with valid proof. Valid proof includes photos or videos that clearly demonstrate the issue with the goods received. Once the request is filed, ' + b + ' is required to review the provided evidence and respond within <strong style="font-weight:bold;">3 business days</strong>.</p>\n\n' +
+
+'<p ' + pStyle + '>If ' + b + ', upon reviewing the proof, finds that it does not clearly demonstrate the problem, the evidence is considered invalid. In such cases, ' + b + ' reserves the right to deny the buyer&rsquo;s refund request.</p>\n\n' +
+
+'<p ' + pStyle + '>If the buyer&rsquo;s evidence clearly demonstrates an issue, the review process should not exceed <strong style="font-weight:bold;">3 business days</strong>. Should a return be necessary for a refund, ' + b + ' must provide the buyer with a prepaid return label within <strong style="font-weight:bold;">3 business days</strong> following approval of the proof. ' + b + ' is then required to issue a refund once the tracking information provided by the buyer indicates the return is in transit, which must also occur within <strong style="font-weight:bold;">3 business days</strong>.</p>\n\n' +
+
+'<p ' + pStyle + '>If the goods do not need to be returned, ' + b + ' must process the refund within <strong style="font-weight:bold;">3 business days</strong> of receiving the refund request.</p>\n\n' +
+
+'<p ' + pStyle + '>In the event that the buyer opts for redelivery and the proof is deemed valid, ' + b + ' must initiate the redelivery within <strong style="font-weight:bold;">5 business days</strong> of the proof being approved. ' + b + ' reserves the right to issue a refund instead if no stock is available for redelivery. Alternatively, buyers may choose to reorder the products once they are back in stock.</p>\n\n' +
+
+'<h3 ' + h3Style + '><font color="#000000"><b>6. LOGISTICS ISSUES</b></font></h3>\n\n' +
+
+'<h4 ' + h4Style + '><font color="#000000"><b>6.1 INVALID TRACKING INFORMATION</b></font></h4>\n\n' +
+
+'<p ' + pStyle + '>If ' + b + ' confirms that the tracking number provided is incorrect and ' + b + ' does not supply the correct tracking information within <strong style="font-weight:bold;">3 business days</strong>, ' + b + ' will issue a refund for the order.</p>\n\n' +
+
+'<h4 ' + h4Style + '><font color="#000000"><b>6.2 UNTIMELY TRACKING INFO UPDATES</b></font></h4>\n\n' +
+
+'<p ' + pStyle + '><strong style="font-weight:bold;">For orders fulfilled by ' + b + ':</strong> Should there be no update on the tracking information for more than <strong style="font-weight:bold;">7 business days</strong> as indicated on the logistics website, and the buyer requests a refund, ' + b + ' must process the refund within <strong style="font-weight:bold;">3 business days</strong> of the buyer&rsquo;s request.</p>\n\n' +
+
+'<p ' + pStyle + '><strong style="font-weight:bold;">For pick-up orders:</strong> ' + b + ' is not held responsible for any logistics-related issues.</p>\n\n' +
+
+'<p ' + pStyle + '>Please note that this policy does not apply during exceptional times or periods, such as public holidays, pandemics, extreme weather conditions, or other unusual circumstances where standard logistics operations may be disrupted.</p>\n\n' +
+
+'<h4 ' + h4Style + '><font color="#000000"><b>6.3 EXTENDED SHIPPING DELAYS</b></font></h4>\n\n' +
+
+'<p ' + pStyle + '><strong style="font-weight:bold;">For orders fulfilled by ' + b + ':</strong> If the actual transit time surpasses the estimated delivery time by <strong style="font-weight:bold;">10 days or more</strong>, and ' + b + ' does not offer any valid updated tracking information, the buyer is entitled to request a refund. Upon such a request, ' + b + ' must issue the refund within <strong style="font-weight:bold;">3 business days</strong>.</p>\n\n' +
+
+'<p ' + pStyle + '><strong style="font-weight:bold;">For pick-up orders:</strong> ' + b + ' is not liable for any issues related to logistics.</p>\n\n' +
+
+'<p ' + pStyle + '>Please note that this policy does not apply during exceptional times or periods, such as public holidays, pandemics, extreme weather conditions, or other unusual circumstances.</p>\n\n' +
+
+'<h4 ' + h4Style + '><font color="#000000"><b>6.4 LOGISTICS EXECUTION RULES</b></font></h4>\n\n' +
+
+'<p ' + pStyle + '>Buyers are required to familiarize themselves with the shipping options provided before placing an order. If multiple shipping methods are offered, ' + b + ' must dispatch the order according to the buyer&rsquo;s selected logistics choice. Non-compliance allows the buyer to seek a refund. However, if the product listing indicates &ldquo;Seller-Selected Shipping (Buyer Cannot Choose),&rdquo; ' + b + ' retains the discretion to choose the shipping method, and any specific logistics requests made by the buyer at the time of order will not be accommodated.</p>\n\n' +
+
+'<h4 ' + h4Style + '><font color="#000000"><b>6.5 RESTRICTIONS ON COMBINED SHIPMENTS</b></font></h4>\n\n' +
+
+'<p ' + pStyle + '>Upon receipt of an order, ' + b + ' must ship each order separately to the designated address. Combining multiple orders into a single shipment is prohibited unless ' + b + ' has received explicit consent from the buyer for such consolidation.</p>\n\n' +
+
+'<h3 ' + h3Style + '><font color="#000000"><b>7. MISCELLANEOUS</b></font></h3>\n\n' +
+
+'<p ' + pStyle + '>During public holidays, pandemics, extreme weather conditions, or other exceptional situations, buyers should reach out to <a href="mailto:' + email + '" style="color:#2563eb;text-decoration:none;">' + email + '</a> or contact ' + b + ' via <a href="' + contactHref + '" style="color:#2563eb;text-decoration:none;">Contact Us</a> to address any product or logistics concerns.</p>\n\n' +
+
+'<p ' + pStyle + '>' + b + ' commits to providing timely assistance to buyers under these special circumstances. Buyers are advised to anticipate a resolution from ' + b + ' on such matters within a maximum of <strong style="font-weight:bold;">two weeks</strong> after notification.</p>\n\n' +
+
+'<p ' + pStyle + '>If buyers are dissatisfied with the resolution of post-sale issues, they are obligated to initiate a dispute with ' + b + ', which will facilitate the handling of the after-sale matters.</p>\n\n' +
+
+'</div>';
+            }
+
+            /* ---- Post-processing (same as original) ---- */
+            htmlContent = htmlContent.split('<p style="margin:0; line-height:1;">&nbsp;</p>').join('');
+            htmlContent = htmlContent.replace(/<\/p>/g, '</p><br>&nbsp;<br>');
+            htmlContent = htmlContent.replace(/<\/h3>/g, '</h3><br>&nbsp;<br>');
+            htmlContent = htmlContent.replace(/<\/h4>/g, '</h4><br>&nbsp;<br>');
+            htmlContent = htmlContent.replace(/<\/h2>/g, '</h2><br>&nbsp;<br>');
+            htmlContent = htmlContent.replace(/^(<div[^>]*>)/, '$1<div style="height:2in;"></div>');
+
+            /* ---- Render ---- */
+            if (type === 'short') {
+                outputBox.textContent = htmlContent;
+                outputBox.style.fontFamily = 'monospace';
+                outputBox.style.whiteSpace = 'pre-wrap';
+                outputBox.style.textAlign = 'left';
+                document.getElementById('instructionBox').style.display = 'block';
+            } else {
+                outputBox.innerHTML = htmlContent;
+                outputBox.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
+                outputBox.style.whiteSpace = 'normal';
+                document.getElementById('instructionBox').style.display = 'none';
+            }
+
+            updateStats('shippingOutput', 'shippingStats');
+
+        } catch(e) {
+            alert('Error generating policy: ' + e.message);
+            console.error(e);
         }
-    </script>
-</body>
+    }
+</script>
+
 </html>
