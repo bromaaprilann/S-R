@@ -364,19 +364,19 @@
                 // ==========================================
                 // OPTION 1 STYLES  (font sizes driven by FONT object above)
                 // ==========================================
-                const pStyle = 'style="text-align: left; margin: 0 0 20px 0; line-height: 1.75; font-size: ' + FONT.body + 'px; color: #1f2937;"';
+                const pStyle = 'style="text-align: left; margin: 0 0 5px 0; line-height: 1.75; font-size: ' + FONT.body + 'px; color: #1f2937;"';
 
-                const h2TopStyle = 'style="text-align: left; margin: 0 0 28px 0; border-bottom: 3px solid #e5e7eb; padding-bottom: 12px; font-size: ' + FONT.title + 'px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #000000;"';
-                const h3Style = 'style="text-align: left; margin: 40px 0 14px 0; font-size: ' + FONT.section + 'px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; color: #000000;"';
-                const h4Style = 'style="text-align: left; margin: 28px 0 12px 0; font-size: ' + FONT.sub + 'px; font-weight: 700; color: #000000;"';
+                const h2TopStyle = 'style="text-align: left; margin: 0 0 10px 0; border-bottom: 3px solid #e5e7eb; padding-bottom: 12px; font-size: ' + FONT.title + 'px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #000000;"';
+                const h3Style = 'style="text-align: left; margin: 10px 0 10px 0; font-size: ' + FONT.section + 'px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; color: #000000;"';
+                const h4Style = 'style="text-align: left; margin: 10px 0 10px 0; font-size: ' + FONT.sub + 'px; font-weight: 700; color: #000000;"';
 
                 // ==========================================
                 // OPTION 2 CODE STYLES
                 // ==========================================
-                const pCode = 'style="text-align: left; margin: 0 0 16px 0; line-height: 1.6;"';
-                const h2TopCode = 'style="text-align: left; margin: 0 0 24px 0; border-bottom: 2px solid #ddd; padding-bottom: 10px; font-size: 1.6em; font-weight: 900; text-transform: uppercase;"';
-                const h2Code = 'style="text-align: left; margin: 40px 0 20px 0; border-bottom: 1px solid #ddd; padding-bottom: 10px; font-size: 1.35em; font-weight: 900; text-transform: uppercase;"';
-                const h3Code = 'style="text-align: left; margin: 24px 0 12px 0; font-size: 1.1em; font-weight: 900; text-transform: uppercase;"';
+                const pCode = 'style="text-align: left; margin: 0 0 5px 0; line-height: 1.6;"';
+                const h2TopCode = 'style="text-align: left; margin: 0 0 10px 0; border-bottom: 2px solid #ddd; padding-bottom: 10px; font-size: 1.6em; font-weight: 900; text-transform: uppercase;"';
+                const h2Code = 'style="text-align: left; margin: 10px 0 10px 0; border-bottom: 1px solid #ddd; padding-bottom: 10px; font-size: 1.35em; font-weight: 900; text-transform: uppercase;"';
+                const h3Code = 'style="text-align: left; margin: 10px 0 10px 0; font-size: 1.1em; font-weight: 900; text-transform: uppercase;"';
                 const ulCode = 'style="text-align: left; margin: 0 0 16px 0; padding-left: 24px; line-height: 1.6;"';
                 const liCode = 'style="text-align: left; margin-bottom: 8px;"';
 
@@ -456,9 +456,8 @@
     <p ${pCode}>If you have questions about your order, please reach out to <a href="${contactHref}" style="color: #2563eb; text-decoration: none;">Contact Us</a>.</p>
 </div>`;
                 } else {
-                    htmlContent = `<div style="text-align: left !important; font-family: inherit; width: 100% !important;">
+                    htmlContent = `<div class="wsc-policy" style="text-align: left !important; font-family: inherit; width: 100% !important;">
     <h2 ${h2TopStyle}><font color="#000000"><b>GENERAL TERMS &amp; POLICY</b></font></h2>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
 
     <p ${pStyle}>${b} reserves the right to update the rules when necessary, and the updated version will be published on ${urlLinkOpt1} with immediate effect. If you refuse to accept the policy, you are deemed to have waived the use of the services provided by ${b} immediately. All buyers are deemed to accept the rules if they are using the services provided by ${b}. ${bPos} policy shall prevail.</p>
 
@@ -482,10 +481,7 @@
 
     <p ${pStyle}>Whether the evidence is compelling or not will ultimately be determined by ${b} Under Various Circumstances:</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h3 ${h3Style}><font color="#000000"><b>1. REFUND REQUEST TIMING</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>The buyer has the right to apply for a full refund for the order that was not shipped out within the stated processing time (subject to the estimated processing time displayed on the order page).</p>
     <p ${pStyle}><strong style="font-weight: bold;">Return &amp; Refund Type ${b} Rules</strong></p>
     <p ${pStyle}><strong style="font-weight: bold;">For Unshipped Orders:</strong><br>
@@ -495,25 +491,17 @@
     <p ${pStyle}><strong style="font-weight: bold;">For Shipped Orders:</strong><br>
     The Return &amp; Refund request is made after the order has shipped. ${b} has 10 business days to process the request after the buyer submits it. If ${b} fails to process (accept or reject) the refund request within 10 business days, ${b} will refund the order.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h3 ${h3Style}><font color="#000000"><b>2. GOODS RETURNED IN TRANSIT</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>If the package is sent back to ${b} during transit for any reason, and the buyer applies for a refund, ${b} should refund within 3 business days of the refund request. Under the same cases, if the buyer requests redelivery, ${b} should begin redelivery within 5 business days of the request date.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h3 ${h3Style}><font color="#000000"><b>3. GOODS DESTROYED IN TRANSIT</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>If the package/goods are destroyed in transit, and buyer has proof from the logistics website such as but not limited to a screenshot from the logistics website that the order was destroyed, ${b} should refund the order within 3 business days of buyer's refund request, or redelivery within 5 business days of the request. The following steps must be followed when creating this type of request.</p>
     <p ${pStyle}>a. Photos or videos of the damaged item to prove damage. If the photo cannot prove the products are damaged, please upload the video.<br>
     b. Screenshot of the e-mail or dispute received including name, date and content. In other words, a customer has sent the complaint (Through PayPal Dispute or other Gateway, e-mail, etc.).<br>
     c. The products need to be returned to ${b}, if our Dispute Team asks for a return in Disputes.</p>
     <p ${pStyle}>Except for the important interpretation, ${b} will make a refund, resend, or accept the return for any of the following cases:</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>3.1 ORDERS DELAYED</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>Orders are lacking tracking information, in transit, pending, expired 60 days after orders departed from ${b} warehouse. Following countries and shipping methods may be different:</p>
     <p ${pStyle}>a. For orders shipped to the USA, it will be counted 45 days after orders departed from ${b} warehouse.<br>
     b. For Brazil, it is after 110 days counting from the date that order departed from ${b} warehouse due to the strict customs clearance at Brazil.<br>
@@ -524,9 +512,7 @@
     Due to such conditions as national realities, phone numbers, and religious beliefs in Israel, packages will be normally delivered to self pick-up cabinets, which may lead to packages being long overdue. Therefore, it will be much more convenient for clients to contact the local post office or go to the post office for delivery.<br><br>
     Sometimes, local tracking numbers may show a sign for delivery, but the end customer claims that the package has not been received. In such cases, ${b} will spare no effort to verify the real situation, which could be a long process (1-2 months), but there is no guarantee of a positive result.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>3.2 ORDERS NOT RECEIVED</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>${b} will not deal with the refund or resend if the tracking information shows the order is delivered.</p>
     <p ${pStyle}>a. If clients do not receive the package, a non-delivery certification issued by the local post office with an official seal is necessary.<br>
     b. Tracking information alert. The tracking information shows Alert, the reasons are listed as below:<br>
@@ -543,9 +529,7 @@
     b. If the logistics company provides return service to US, ${b} will put the products in your private inventory and will not refund them when we receive the returned items.<br><br>
     c. ${b} cannot offer a refund or resend if you don&rsquo;t process the undelivered orders or packages destroyed by logistics companies.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>3.3 PRODUCTS DAMAGED</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>${b} offers a full refund or a replacement if packages arrived are badly damaged.<br>
     ${b} offers a partial refund or a replacement if packages arrived partially damaged (except thread, slightly wrinkled, small scratches etc.).</p>
     <p ${pStyle}><strong style="font-weight: bold;">Notes:</strong><br>
@@ -554,9 +538,7 @@
     c. For ordinary, electronic products, Your clients shall complain or open a dispute to you within 30 days after packages are delivered.<br>
     d. For service products, ${b} refunds you the cost of the product which is the price in the US market. Otherwise, ${b} will not take any responsibility for them.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>3.4 INCORRECT OR MISSING PRODUCTS</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>${b} has a strict quality control process before products are dispatched. <br>
     ${b} will deal with incorrect or missing products as follows:</p>
     <p ${pStyle}>a. For incorrect products, ${b} offers a full refund or replacement.<br>
@@ -566,28 +548,20 @@
     <p ${pStyle}><strong style="font-weight: bold;">Notes:</strong><br>
     For size problems, ${b} will appreciate it a lot if you can measure the product according to the correct measurement method and provide us with the photo of measurement. Then, our dispute team will deal with your disputes quickly.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h3 ${h3Style}><font color="#000000"><b>4. WRONG RECEIPT INFORMATION</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>If the buyer puts wrong receipt information on an order, the buyer should contact the us via <a href="${contactHref}" style="color: #2563eb; text-decoration: none;">Contact Us</a> to request us to update the order with the correct receipt information.</p>
     <p ${pStyle}>Please note the receipt information correction or order cancellation are not guaranteed.<br>
     If the order has already shipped out, it is the buyer's responsibility to contact the logistics company with the correct information.<br>
     If the goods have been delivered to the wrong receipt, the buyer can attempt to send back the products at his/her own expense. If the goods are returned in good condition, ${b} shall refund the order within 3 business days of receiving the goods, as buyer&rsquo;s refund request, or begin redelivery within 5 business days of receiving the goods. Please note the buyer will additionally be in charge of the redelivery fee.</p>
     <p ${pStyle}>If the order cannot be corrected or returned, the buyer will bear the losses.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h3 ${h3Style}><font color="#000000"><b>5. DEFECTIVE PRODUCTS (PACKAGE BREAKAGE/SIGNIFICANTLY NOT AS DESCRIBED/MISSING OR WRONG GOODS/QUALITY PROBLEMS)</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>If the buyer detects any problem upon receipt (damaged package/significantly not as described/missing or wrong goods or other quality problems), buyer should provide a refund or redelivery request with valid proof (photos/videos of goods received that shows the problem clearly). After the buyer files a request on ${b}, ${b} should check the proof and give a response within 3 business days.</p>
     <p ${pStyle}>If the proof checked by ${b} is not showing the problem clearly and or if the proof checked by ${b} is not showing the problem clearly, the proof is invalid, and the ${b} has the right to reject the buyer's refund request.</p>
     <p ${pStyle}>If the buyer's proof shows a problem clearly after being checked by the ${b}, the proof checking time shall not more than 3 business days, and if the goods need to be returned to get a refund, ${b} should provide the buyer with a prepaid return label within 3 business days of proof approval, and refund the order when the return shows in transit on the logistics website searched by tracking number buyer uploaded within 3 business days. If the goods needn't be returned, ${b} should refund the order within 3 business days of the refund request.</p>
     <p ${pStyle}>If proof is valid, and buyer requests redelivery, ${b} should redelivery within 5 business days of proof approval. Please note ${b} has the right to refund orders if the redelivery products have no stocks, or buyers are able to reorder products when the products are restocked.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>5.1 INCORRECT OR MISSING PRODUCTS</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>${b} has a strict quality control process before products are dispatched. <br>
     ${b} will deal with incorrect or missing products as follows:</p>
     <p ${pStyle}>a. For incorrect products, ${b} offers a full refund or replacement.<br>
@@ -597,86 +571,58 @@
     <p ${pStyle}><strong style="font-weight: bold;">Notes:</strong><br>
     For size problems, ${b} will appreciate it a lot if you can measure the product according to the correct measurement method and provide us with the photo of measurement. Then, our dispute team will deal with your disputes quickly.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>5.2 SERVICE PRODUCTS</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>Service products apply to the following interpretation.</p>
     <p ${pStyle}>a. Any disputes arising from products damaged or shipping delayed, ${b} may not refund the product cost.<br>
     b. Any disputes arising from bad quality, ${b} may not accept as the supplier is not ${b}.<br>
     c. For service products without ${b} quality checking inspection, ${b} may not accept the disputes.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h3 ${h3Style}><font color="#000000"><b>6. LOGISTICS ISSUES</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>6.1 INVALID TRACKING INFORMATION</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>If ${b} verifies the tracking number is wrong, and ${b} fails to provide the correct one within 4 business days, ${b} will refund the order.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>6.2 UNTIMELY TRACKING INFO UPDATES</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>If there is no update of the tracking info for more than 7 business days after the label is created showing on a logistic website, and the buyer applies for a refund, ${b} requires a refund order within 3 business days since buyer request.<br>
     Note: this clause is not applicable for special time/periods such as holidays, covid-19, abnormal weather, or other abnormal situations.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>6.3 TOO-LONG OF SHIPPING PERIOD</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>If the transit time exceeds the estimated delivery time by 10 days or more and ${b} fails to provide any valid tracking updated info, the buyer may apply for a refund. ${b} requires a refund order within 3 business days as buyer requests.<br>
     Note: this clause is not applicable for special time/periods such as holidays, covid-19, abnormal weather, or other abnormal situations.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>6.4. SHIPPING METHOD LIMITS</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>Some shipping methods are not trackable when orders arrive at some Countries, States, or Cities. ${b} lists those shipping methods in advance and will not accept any disputes when you choose those shipping methods to some countries, including:<br>
     PostNL, Electric PostNL, Packet Eub, Packet Postal Route, Packet Postal, Packet Railway Economy.</p>
 
     <p ${pStyle}><strong style="font-weight: bold;">Notes:</strong><br>
     When choosing certain shipping methods, the remote addresses will be charged additional cost.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>6.5 FORCE MAJEURE</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>${b} takes no responsibility for any product damage or shipping delay caused by the act of god, including but not limited to: epidemic situation, international situation, strike, war, earthquake, flood, virus, storm, heavy snow, customs inspection. However, ${b} will notify you accordingly.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>6.6 DESTINATION LIMITS</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>Due to limited international transportation, ${b} will not accept any disputes when your orders are shipped to the following countries:<br>
     Brunei, Cambodia, Laos, Vietnam, Andorra, Guernsey, Gibraltar, Greenland, Canary Islands, Iceland, Jersey, Liechtenstein, Monaco, San Marino, Vatican, Bahrain, Kuwait, Afghanistan, Antigua, Anguilla, Albania, Armenia, Angola, Argentina, American Samoa, Aruba, Azerbaijan, Bosnia and Herzegovina, Barbados Bangladesh, Burkina Faso, Burundi, Benin, Bermuda, Bolivia, Bahamas, Bhutan, Botswana, Belarus, Belize, Democratic Republic of the Congo, Central African Republic, Congo, Cote d'Ivoire, Cook Islands, Cameroon, Costa Rica, Cuba, Cape Verde, Djibouti, Dominica, Dominican Republic, Algeria, Ecuador, Eritrea, Ethiopia Fiji Islands, Falkland Islands, Micronesia, Faroe Islands, Gabon, Grenada, Georgia, French Guiana, Ghana, Gambia, Guinea, Guadeloupe, Equatorial Guinea, Guatemala, Guam, Guinea Bissau, Guyana, Honduras, Haiti, Iraq, Iran, Jamaica, Jordan, Kenya, Kyrgyzstan, Kiribati, Comoros, Saint Kitts, North Korea Kosovo, Cayman Islands, Kazakhstan, Lebanon, Saint Lucia, Sri Lanka, Liberia, Lesotho, Libya, Morocco, Moldova, Montenegro, Madagascar, Marshall Islands, Republic of North Macedonia, Mali, Myanmar, Mongolia, Saipan, Martinique, Mauritania, Montserrat, Mauritius, Maldives, Malawi, Mozambique, Namibia New Caledonia, Niger, Nigeria, Nicaragua, Nepal, Nauru, Niue, Oman, Panama, Peru, Tahiti, Papua New Guinea, Pakistan, Palau, Paraguay, Qatar, R&eacute;union, Romania, Serbia, Rwanda, Solomon Islands, Seychelles, Sudan, St. Helena, Sierra Leone, Senegal, Somalia, Suriname, Republic of South Sudan Sao Tome and Principe, El Salvador, Syria, Eswatini, Turks and Caicos Islands, Chad, Togo, Tajikistan, Timor Leste, Turkmenistan, Tunisia, Tonga, Trinidad and Tobago, Tuvalu, Tanzania, Ukraine, Uganda, Uruguay, Uzbekistan, Saint Vincent Island, Venezuela, British Virgin Islands, United States Virgin Islands, Vanuatu Samoa, Bernel, Curacao, Saint Eustacius, Saint Martin, Nevis, Somaliland, Saint Bafulimi, Yemen, Mayotte Island, Zambia, and Zimbabwe.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h3 ${h3Style}><font color="#000000"><b>7. OTHER</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>When encountering holidays, COVID-19, abnormal weather, or other abnormal situations, the buyer shall contact us via <a href="${contactHref}" style="color: #2563eb; text-decoration: none;">Contact Us</a>.</p>
     <p ${pStyle}>${b} will try its best to assist buyers in these special circumstances in a timely manner. After notifying ${b}, Buyers should expect a decision from ${b} on these types of issues no later than two weeks.</p>
     <p ${pStyle}>${b} takes no responsibility for any product damage or shipping delay caused by the act of god, including but not limited to: epidemic situation, international situation, strike, war, earthquake, flood, virus, storm, heavy snow, customs inspection. However, ${b} will notify you accordingly.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>7.1 RETURN</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>Products can be returned to ${b} US warehouses only. But we do not suggest returning products to our warehouses, because the international shipping cost is high and it takes at least 3 months to arrive at ${b} US Warehouse. Most of them will be lost during the return. Also, most of the returned products will be damaged on the way.</p>
     <p ${pStyle}>a. If you indeed want to return the products, please email ${b} and someone will respond to you within 1 to 5 business days. <br>
     b. Please return products within 10 days after receiving products and after speaking with someone at ${b}. </p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>7.2 ORDERS CANCELLATION</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>For orders cancellation, ${b} offers a full refund before products are processed by warehouses.</p>
     <p ${pStyle}>a. After payment, POD orders cannot be canceled as it is customized.<br>
     b. After payment, pre order inventory orders cannot be canceled as they are special products and only available for you.<br>
     c. After payment, video and photo orders cannot be canceled as ${b} has planned and prepared for you after payment.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>7.3 DEADLINE OF OPENING DISPUTE</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>You cannot open a dispute if the order status is closed. Your dispute cannot be resolved when tracking information from a third party is untraceable.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h4 ${h4Style}><font color="#000000"><b>7.4 UNACCEPTABLE DISPUTES</b></font></h4>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>${b} shall not accept any unreasonable disputes, including but not limited to:<br>
     a. The buyer does not like it.<br>
     b. The product description is not real.<br>
@@ -687,10 +633,7 @@
     g. Tracking information deleted by logistics companies or local post offices.<br>
     h. In some cases, packages returned/discarded/detained due to the consignee&rsquo;s failure to comply with the work of customs clearance in line with the foreign trade policies of certain countries.</p>
 
-    <p style="margin:0; line-height:1;">&nbsp;</p>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <h3 ${h3Style}><font color="#000000"><b>8. ATTENTION</b></font></h3>
-    <p style="margin:0; line-height:1;">&nbsp;</p>
     <p ${pStyle}>If buyers are unsatisfied with the solution of the order after-sale issues, buyers have the responsibility to open a dispute with ${b} to help deal with the after-sale issues.</p>
 </div>`;
                 }
